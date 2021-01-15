@@ -1,14 +1,22 @@
-const Sequelize = require('sequelize');
+const sequelize = require('./connection');
+const {
+  Item,
+  Image,
+  ItemVariant,
+  Subcategory,
+  Category,
+  Department,
+} = require('./models');
 
-const sequelize = new Sequelize('products', 'student', 'student', {
-  host: 'localhost',
-  dialect: 'sqlite',
-});
+sequelize.sync();
+// Use sequelize Model methods with all imported models^
 
-sequelize.authenticate()
-  .then(() => {
-    console.log('Established database connection');
-  })
-  .catch((err) => {
-    console.error(`Unable to connect to database: ${err}`);
-  });
+// module.exports.getItem = function (itemId) {
+//
+// };
+// module.exports.getImages = function(itemId, amount = 10) {
+//
+// }
+// module.exports.addToCart = function(itemId, amount = 1) {
+//
+// };
