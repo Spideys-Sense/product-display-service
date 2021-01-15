@@ -1,30 +1,15 @@
-const { Model, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const Item = require('./Item');
-const connection = require('../connection');
+const db = require('../connection');
 
-class Image extends Model {}
-
-Image.init({
-  item_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: Item,
-      key: 'id',
-    },
-  },
+const Image = db.define('Image', {
   url: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-}, {
-  sequelize: connection,
-  modelName: 'Image',
 });
 
-// Image.sync()
-//   .catch((err) => {
-//     console.error(`error syncing Images: ${err}`);
-//   });
+// Each image belongs to an item
+Image.belongsTo(Item);
 
 module.exports = Image;

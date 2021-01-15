@@ -1,16 +1,11 @@
-const { Model, DataTypes } = require('sequelize');
-const connection = require('../connection');
+const { DataTypes } = require('sequelize');
+const db = require('../connection');
 
-class Department extends Model {}
-
-Department.init({
+const Department = db.define('Department', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-}, {
-  sequelize: connection,
-  modelName: 'Department',
 });
 
 // Department.sync()

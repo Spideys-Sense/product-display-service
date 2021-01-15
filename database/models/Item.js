@@ -1,10 +1,8 @@
-const { Model, DataTypes } = require('sequelize');
-const Subcategory = require('./Subcategory');
-const connection = require('../connection');
+const { DataTypes } = require('sequelize');
+const Department = require('./Department');
+const db = require('../connection');
 
-class Item extends Model {}
-
-Item.init({
+const Item = db.define('Item', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -16,26 +14,14 @@ Item.init({
   discount: {
     type: DataTypes.INTEGER,
   },
-  subcategory_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: Subcategory,
-      key: 'id',
-    },
-  },
   stock: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-}, {
-  sequelize: connection,
-  modelName: 'Item',
 });
 
-// Item.sync({ logging: console.log })
-//   .catch((err) => {
-//     console.error(`error syncing Items: ${err}`);
-//   });
+// Each item belongs to a department, and has many variants
+Item.belongsTo(Department);
+Item.belongsToMany(Item, { as: 'Variants', through: 'ItemVariants' });
 
 module.exports = Item;

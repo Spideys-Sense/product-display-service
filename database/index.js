@@ -1,22 +1,9 @@
-const sequelize = require('./connection');
-const {
-  Item,
-  Image,
-  ItemVariant,
-  Subcategory,
-  Category,
-  Department,
-} = require('./models');
+const db = require('./connection');
+const models = require('./models');
 
-sequelize.sync();
-// Use sequelize Model methods with all imported models^
+// This file is responsible for syncing all models in the db
 
-// module.exports.getItem = function (itemId) {
-//
-// };
-// module.exports.getImages = function(itemId, amount = 10) {
-//
-// }
-// module.exports.addToCart = function(itemId, amount = 1) {
-//
-// };
+db.sync();
+
+module.exports.db = db;
+module.exports.models = models;

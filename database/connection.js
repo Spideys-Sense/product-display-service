@@ -1,41 +1,20 @@
-const mysql = require('mysql2');
 const { Sequelize } = require('sequelize');
 
-// This file is responsible for initiating mySQL/Sequelize connections
+// This file is responsible for initiating the Sequelize connection
 
-// First we init our database with mysql:
-
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'student',
-  password: 'student',
-});
-
-connection.promise().query(
-  'CREATE DATABASE IF NOT EXISTS Bitey;',
-)
-  .then(() => {
-    console.log('Bitey Database confirmed to exist');
-  })
-  .catch((err) => {
-    console.error(`Error creating Bitey Database: ${err}`);
-  });
-
-// Now we build our sequelize instance
-
-const sequelize = new Sequelize('Bitey', 'student', 'student', {
+const sequelize = new Sequelize('product_displays', 'student', 'student', {
   host: 'localhost',
   dialect: 'mysql',
 });
 
-sequelize.authenticate()
+sequelize.sync()
   .then(() => {
-    console.log('Established sequelize connection');
+    console.log('\n-Completed Database Sync-\n');
   })
   .catch((err) => {
-    console.error(`Unable to connect to database: ${err}`);
+    console.error(err);
   });
 
-// And export it
+// And exporting it
 
 module.exports = sequelize;
