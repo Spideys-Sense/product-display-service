@@ -5,6 +5,7 @@ const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize('product_displays', 'student', 'student', {
   host: 'localhost',
   dialect: 'mysql',
+  logging: false,
 });
 
 sequelize.sync()

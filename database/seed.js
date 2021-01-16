@@ -44,28 +44,28 @@ chance.mixin({
   },
 });
 
-const seed = async (database) => {
+const seed = async (database, modelsObject) => {
   await database.drop();
   await database.sync();
-
   for (let i = 1; i < 11; i += 1) {
-    models.Department.create(chance.biteyDepartment());
+    modelsObject.Department.create(chance.biteyDepartment());
   }
 
   for (let i = 1; i < 101; i += 1) {
     const dptId = chance.integer({ min: 1, max: 10 });
     const newItem = chance.biteyFoodItem(dptId);
-    models.Item.create(newItem);
+    modelsObject.Item.create(newItem);
   }
 
   for (let i = 1; i < 101; i += 1) {
     const imageCount = chance.integer({ min: 4, max: 13 });
     for (let j = 1; j < imageCount; j += 1) {
-      models.Image.create(chance.biteyImage(i));
+      modelsObject.Image.create(chance.biteyImage(i));
     }
   }
+  return Promise.resolve('Test');
 };
 
-seed(db);
+seed(db, models);
 
 module.exports = seed;
