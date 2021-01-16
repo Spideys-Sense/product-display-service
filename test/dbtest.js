@@ -3,6 +3,7 @@ const { expect } = require('chai');
 const Sequelize = require('sequelize');
 
 // Use test db
+
 const db = new Sequelize('product_displays_test', 'student', 'student', {
   host: 'localhost',
   dialect: 'mysql',
@@ -10,11 +11,13 @@ const db = new Sequelize('product_displays_test', 'student', 'student', {
 });
 
 // Define models:
+
 const Department = db.define('Department', {
   name: {
     type: Sequelize.STRING,
   },
 });
+
 const Item = db.define('Item', {
   name: {
     type: Sequelize.STRING,
@@ -29,12 +32,15 @@ const Item = db.define('Item', {
     type: Sequelize.INTEGER,
   },
 });
+
 const Image = db.define('Image', {
   url: {
     type: Sequelize.STRING,
   },
 });
+
 // Define relationships and sync
+
 Item.belongsTo(Department);
 Item.belongsToMany(Item, { as: 'Variants', through: 'ItemVariants' });
 Image.belongsTo(Item);
@@ -68,8 +74,6 @@ const seed = async () => {
   }
 };
 
-// const models = { Department, Item, Image };
-
 //
 // Actual test suite starts here
 //
@@ -80,7 +84,6 @@ describe('Database', async () => {
   before(async () => {
     await db.drop();
     await db.sync();
-    // await seed(db, models);
   });
 
   it('Should have Item, ItemVariant, Image, and Department tables', () => {
@@ -101,16 +104,9 @@ describe('Database', async () => {
 
   it('Should have 100 Item entries seeded', async function () {
     this.timeout(10000);
-    // return seed()
-    //   .then(() => Item.findAll())
-    //   .then((resultsArray) => {
-    //     console.log(resultsArray.length);
-    //     expect(resultsArray.length).to.equal(100);
-    //   });
     await seed();
     return Item.findAll()
       .then((resultsArray) => {
-        console.log(resultsArray[0]);
         expect(resultsArray.length).to.equal(100);
       });
   });
