@@ -24,3 +24,5 @@ coverage
 build/
 dist/
 
+# Any local reference files
+reference/
