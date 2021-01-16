@@ -1,17 +1,18 @@
 import React from 'react';
 
-
 export default class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
 
-  render(){
+    };
+  }
 
-
-
+  render() {
     return (
       <div>
         Product display goes here
       </div>
-    )
-
+    );
   }
 }
