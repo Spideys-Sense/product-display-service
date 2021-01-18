@@ -66,3 +66,4 @@ module.exports.retrieveImage = (ItemId, amount) => models.Image.findAll({
 // }
 
 // Post to cart
+module.exports.addToCart = (ItemId) => Promise.resolve(`This is where I would add item ${ItemId} to a shopping cart, if I had one.`);
