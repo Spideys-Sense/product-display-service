@@ -22,7 +22,18 @@ app.get('/api/:id/summary', (req, res) => {
 GET /api/:id/summary
 no parameters
  */
-
+app.get('/api/:id/images', (req, res) => {
+  const { amount } = req.query;
+  const { id } = req.params;
+  controller.retrieveImage(id, amount)
+    .then((result) => {
+      res.status(200);
+      res.send(result);
+    })
+    .catch(() => {
+      res.sendStatus(404);
+    });
+});
 /*
 GET /api/:id/images
 -amount: Number (Default: 10)
