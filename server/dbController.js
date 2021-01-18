@@ -3,19 +3,16 @@ const { db, models } = require('../database');
 const ItemVariants = db.model('ItemVariants');
 
 // Get item data
-module.exports.retrieveItem = (itemId) => models.Item.findAll({
-  where: {
-    id: itemId,
-  },
+module.exports.retrieveItem = (ItemId) => models.Item.findByPk(ItemId, {
+  raw: true,
 })
-  .then((itemResults) => itemResults[0].dataValues)
   .then((itemData) => {
     const item = itemData;
     delete item.createdAt;
     delete item.updatedAt;
     return ItemVariants.findAll({
       where: {
-        ItemId: itemId,
+        ItemId,
       },
     })
       .then((variantResults) => {
@@ -27,17 +24,15 @@ module.exports.retrieveItem = (itemId) => models.Item.findAll({
       })
       .then((departmentId) => {
         delete item.DepartmentId;
-        return models.Department.findAll({
-          where: {
-            id: departmentId,
-          },
+        return models.Department.findByPk(departmentId, {
+          raw: true,
         });
       })
       .then((departmentResults) => {
-        item.Department = departmentResults[0].name;
+        item.Department = departmentResults.name;
         return item;
       });
-  })
+  });
 
 // Returns
 // {
