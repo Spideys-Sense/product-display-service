@@ -56,6 +56,14 @@ module.exports.retrieveItem = (itemId) => models.Item.findAll({
 // }
 
 // Get images
+module.exports.retrieveImage = (ItemId, amount) => models.Image.findAll({
+  where: {
+    ItemId,
+  },
+  raw: true,
+})
+  .then((imageResults) => imageResults.map((resultObj) => resultObj.url))
+  .then((urlList) => ({ imageUrls: urlList }));
 
 // Returns
 // {
