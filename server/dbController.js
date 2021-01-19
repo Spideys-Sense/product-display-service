@@ -49,7 +49,7 @@ module.exports.retrieveItem = (ItemId) => models.Item.findByPk(ItemId, {
 // }
 
 // Get images
-module.exports.retrieveImage = (ItemId, amount) => models.Image.findAll({
+module.exports.retrieveImage = (ItemId) => models.Image.findAll({
   where: {
     ItemId,
   },
