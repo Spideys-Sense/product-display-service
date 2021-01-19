@@ -40,8 +40,6 @@ module.exports.retrieveItem = (ItemId) => models.Item.findByPk(ItemId, {
 //   “name”: string,
 //   “price”: number,
 //   “discount”: string,
-//   “subcategory”: string,
-//   “category”: string,
 //   “department”: string,
 //   “stock”: number,
 //   “variants”: [
