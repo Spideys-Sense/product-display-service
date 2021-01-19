@@ -60,3 +60,5 @@ POST /api/:id/cart
 app.listen(port, () => {
   console.log(`Listening on port ${port}...`);
 });
+
+module.exports = app;
