@@ -8,10 +8,11 @@ const Header = styled.h4`
   border: 2px gray groove;
 `;
 
-export default function ProductDetails() {
+export default function ProductDetails(props) {
+  const { name } = props;
   return (
     <Header>
-      Product Title/Header
+      {name}
     </Header>
   );
 }
