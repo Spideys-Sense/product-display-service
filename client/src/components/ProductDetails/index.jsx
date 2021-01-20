@@ -15,15 +15,19 @@ const DetailsContainer = styled.div`
   border: 1px red dashed;
 `;
 
-export default function ProductDetails() {
+export default function ProductDetails(props) {
+  const {
+    id, name, price, discount, stock, variants,
+  } = props;
+
   return (
     <DetailsContainer>
       Product Details
-      <ProductHeader />
-      <PriceView />
-      <VariantSelector />
-      <InStock />
-      <CartWidget />
+      <ProductHeader name={name} />
+      <PriceView price={price} discount={discount} />
+      <VariantSelector variants={variants} />
+      <InStock stock={stock} />
+      <CartWidget id={id} />
     </DetailsContainer>
   );
 }
