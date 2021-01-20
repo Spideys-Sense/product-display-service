@@ -13,14 +13,36 @@ const AutoShippingClickbait = styled.div`
   border-bottom 1px solid gray;
 `;
 
-export default function PriceView() {
+const formatPrice = function (cents) {
+  // Takes in an integer value of the price in cents
+  const stringCents = `$${cents.toString()}`.split('');
+  const decimalIndex = stringCents.length - 2;
+  stringCents.splice(decimalIndex, 0, '.');
+  // Returns a string representing the price in '$dollars.cents'
+  return stringCents.join('');
+};
+
+export default function PriceView(props) {
+  let { price, discount } = props;
+  price = price || 2499;
+  discount = discount || 100;
+  const realPrice = price - discount;
+
   return (
     <PriceBox>
-      <p>List Price: $$$</p>
-      <p>Price: $$$</p>
-      <p>You Save: $$$</p>
+      <p>
+        {' '}
+        {`List Price: ${formatPrice(price)}`}
+        {' '}
+      </p>
+      <p>
+        {`Price: ${formatPrice(realPrice)}`}
+      </p>
+      <p>
+        {`You Save: ${formatPrice(discount)}`}
+      </p>
       <AutoShippingClickbait>
-        Autoship and save: $$$
+        {`AutoShip & Save! ${formatPrice(realPrice - Math.round(realPrice * 0.05))}`}
       </AutoShippingClickbait>
     </PriceBox>
   );
