@@ -10,13 +10,14 @@ const StockWrapper = styled.div`
   background-color: #fcfcfc;
   font-weight: bold;
   font-size: 18px;
-  color: #286328;
+  color: ${(props) => ((props.stock >= 1) ? '#286328' : '#D2001D')}
 `;
 
-export default function InStock() {
+export default function InStock(props) {
+  const { stock } = props;
   return (
-    <StockWrapper>
-      In Stock
+    <StockWrapper stock={stock}>
+      {(stock) ? 'In stock' : 'Out of stock'}
     </StockWrapper>
   );
 }
