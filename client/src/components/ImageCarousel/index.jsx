@@ -6,6 +6,7 @@ import BigPicture from './BigPicture';
 import ImageList from './ImageList';
 
 const CarouselContainer = styled.div`
+  width: 500px;
   grid-area: 2 / 1 / 2 / 1;
   margin: 10px;
   border: 1px cyan dashed;
@@ -15,20 +16,28 @@ const CarouselContainer = styled.div`
 `;
 
 export default class ImageCarousel extends React.Component {
-  constructor() {
-    super();
-    this.state = {
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      activeIndex: 0,
     };
   }
 
   render() {
+    const { images } = this.props;
+    const { activeIndex } = this.state;
+
     return (
       <CarouselContainer>
         Image Carousel
-        <BigPicture />
-        <ImageList />
+        <ImageList urls={images} />
+        <BigPicture url={images[activeIndex]} />
       </CarouselContainer>
     );
   }
 }
+
+ImageCarousel.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
