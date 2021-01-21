@@ -14,7 +14,7 @@
     "server:dev": "nodemon server/index.js",
     "test": "jest",
     "test:mocha": "mocha './test/*.js'",
-    "seed": "node database/seed.js"
+    "seed": "node database/seed/index.js"
   },
   "dependencies": {
     "axios": "^0.21.1",
