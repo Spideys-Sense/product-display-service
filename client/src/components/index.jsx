@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import axios from 'axios';
 import ImageCarousel from './ImageCarousel';
 import ProductDetails from './ProductDetails';
 import DepartmentList from './DepartmentList';
@@ -8,50 +10,42 @@ const AppContainer = styled.div`
   margin: auto;
   min-width: 90%;
   min-height: 80vh;
+  max-width: 55vw;
   border: 1px solid black;
   display: grid;
-  grid-template-columns: 55% 45%;
+  grid-template-columns: 530px 650px;
   grid-template-rows: 10% 90%;
 `;
+AppContainer.displayName = 'AppContainer';
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-
+      id: 0,
     };
   }
 
   componentDidMount() {
     // Get data from server
-    this.setState({
-      id: 50,
-      name: 'Home-cooked ferret treats',
-      price: 3543,
-      discount: 1323,
-      stock: 10,
-      variants: [
-        1,
-        26,
-        85,
-      ],
-      Department: 'dog > Food > Wet',
-      images: [
-        'placeimg.com/640/480',
-        'placeimg.com/640/480',
-        'placeimg.com/640/480',
-        'placeimg.com/640/480',
-        'placeimg.com/640/480',
-        'placeimg.com/640/480',
-        'placeimg.com/640/480',
-        'placeimg.com/640/480',
-      ],
-    });
+    const { id } = this.props;
+    let localItem;
+    axios.get(`/api/${id}/summary`)
+      .then((response) => response.data)
+      .then((servedItem) => {
+        localItem = servedItem;
+        return axios.get(`/api/${id}/images`);
+      })
+      .then((response) => response.data.imageUrls)
+      .then((servedImages) => {
+        localItem.images = servedImages;
+        this.setState(localItem);
+      });
   }
 
   render() {
     const {
-      name, price, discount, stock, variants, Department, images,
+      id, name, price, discount, stock, variants, Department, images,
     } = this.state;
 
     const department = Department;
@@ -62,6 +56,7 @@ class App extends React.Component {
         <DepartmentList department={department} />
         <ImageCarousel images={images} />
         <ProductDetails
+          id={id}
           name={name}
           price={price}
           discount={discount}
@@ -70,9 +65,24 @@ class App extends React.Component {
         />
       </AppContainer>
     ) : (
-      <div>Loading</div>
+      <AppContainer>
+        <DepartmentList department={'null'} />
+        <ImageCarousel images={['img']} />
+        <ProductDetails
+          id={0}
+          name={'null'}
+          price={0}
+          discount={0}
+          stock={0}
+          variants={[0]}
+        />
+      </AppContainer>
     );
   }
 }
+
+App.propTypes = {
+  id: PropTypes.number.isRequired,
+};
 
 export default App;
