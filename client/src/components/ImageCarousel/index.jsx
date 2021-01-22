@@ -6,14 +6,15 @@ import BigPicture from './BigPicture';
 import ImageList from './ImageList';
 
 const CarouselContainer = styled.div`
-  width: 500px;
+  width: 100%;
   grid-area: 2 / 1 / 2 / 1;
   margin: 10px;
   border: 1px cyan dashed;
   display: grid;
-  grid-template-rows: 1fr;
+  grid-template-rows: 100%;
   grid-template-columns: 1fr 5fr;
 `;
+
 
 export default class ImageCarousel extends React.Component {
   constructor(props) {
@@ -27,12 +28,12 @@ export default class ImageCarousel extends React.Component {
   render() {
     const { images } = this.props;
     const { activeIndex } = this.state;
+    const bigImage = images[activeIndex];
 
     return (
       <CarouselContainer>
-        Image Carousel
         <ImageList urls={images} />
-        <BigPicture url={images[activeIndex]} />
+        <BigPicture url={bigImage} />
       </CarouselContainer>
     );
   }

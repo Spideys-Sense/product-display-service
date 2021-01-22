@@ -3,9 +3,10 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const ImageBorderWrapper = styled.div`
+  box-sizing: border-box;
   width: 90px;
   height: 60px;
-  margin: 10px;
+  margin: 5px;
   bottom: 1px;
   border: 1px #D5D5D5 solid;
   border-radius: 4px;

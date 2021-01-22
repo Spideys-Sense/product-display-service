@@ -1,9 +1,11 @@
+/* eslint-disable no-useless-constructor */
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+// grid-area: 1 / 2 / 1 / 2;
+
 const BigPictureFrame = styled.div`
-  grid-area: 1 / 2 / 1 / 2;
   margin: 10px;
   bottom: 1px;
   border: 1px green dashed;
@@ -15,24 +17,35 @@ const BigPictureFrame = styled.div`
 const Img = styled.img`
   max-height: 100%;
   max-width: 100%;
-  object-fit: cover;
+  object-fit: contain;
 `;
 
 export default class BigPicture extends React.Component {
   constructor(props) {
     super(props);
 
-    const { url } = props;
-
     this.state = {
-      url,
-    };
+      mouseX: 0,
+      mouseY: 0
+    }
+    this.handleMouseMove = this.handleMouseMove.bind(this);
+  }
+
+  handleMouseMove(e) {
+    const rect = e.target.getBoundingClientRect();
+    const x = Math.round(e.clientX - rect.x);
+    const y = Math.round(e.clientY - rect.y);
+    console.log(x, y);
+    this.setState({
+      mouseX: x,
+      mouseY: y,
+    });
   }
 
   render() {
-    const { url } = this.state;
+    const { url } = this.props;
     return (
-      <BigPictureFrame>
+      <BigPictureFrame onPointerMove={this.handleMouseMove}>
         <Img src={url} />
       </BigPictureFrame>
     );
