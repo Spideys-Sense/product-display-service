@@ -9,7 +9,6 @@ const ListWrapper = styled.div`
   height: fit-content;
   margin: 10px;
   bottom: 1px;
-  border: 1px green dashed;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,7 +17,6 @@ const ListWrapper = styled.div`
 const ImageSliderFrame = styled.div`
   box-sizing: border-box;
   margin: 0;
-  background-color: yellow;
   width: 100%;
   height: 350px;
   overflow: hidden;
@@ -28,11 +26,11 @@ const ImageSliderFrame = styled.div`
 
 const ImageSlider = styled.div`
   margin: 0;
-  background-color: red;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  translateY(y): ${(props) => props.page * 350}px;
+  transition: transform 0.4s ease-in-out;
+  transform: translateY(-${(props) => (props.page * 350)}px);
 `;
 
 const ScrollButton = styled.button`
@@ -56,12 +54,34 @@ const DownButton = styled(ScrollButton)`
 export default class ImageList extends React.Component {
   constructor(props) {
     super(props);
-
+    this.maxPages = Math.ceil(props.urls.length / 5);
     this.state = {
       canScrollUp: false,
-      canScrollDown: true,
+      canScrollDown: (this.maxPages > 0),
       page: 0,
     };
+
+    this.scrollDown = this.scrollDown.bind(this);
+    this.scrollUp = this.scrollUp.bind(this);
+    console.log(this.maxPages);
+  }
+
+  scrollUp() {
+    let { page } = this.state;
+    if (page > 0) {
+      page -= 1;
+      const canScrollUp = (page !== 0);
+      this.setState({ page, canScrollUp });
+    }
+  }
+
+  scrollDown() {
+    let { page } = this.state;
+    if (page < this.maxPages) {
+      page += 1;
+      const canScrollDown = (page !== this.maxPages);
+      this.setState({ page, canScrollDown });
+    }
   }
 
   render() {
@@ -69,13 +89,13 @@ export default class ImageList extends React.Component {
     const { canScrollUp, canScrollDown, page } = this.state;
     return (
       <ListWrapper>
-        <UpButton enabled={canScrollUp}>▲</UpButton>
+        <UpButton enabled={canScrollUp} onClick={this.scrollUp}>▲</UpButton>
         <ImageSliderFrame>
-          <ImageSlider>
+          <ImageSlider page={page}>
             {urls.map((url, i) => <ImageListEntry url={url} key={`IMG${i + 1}`} />)}
           </ImageSlider>
         </ImageSliderFrame>
-        <DownButton enabled={canScrollDown}>▼</DownButton>
+        <DownButton enabled={canScrollDown} onClick={this.scrollDown}>▼</DownButton>
       </ListWrapper>
     );
   }
