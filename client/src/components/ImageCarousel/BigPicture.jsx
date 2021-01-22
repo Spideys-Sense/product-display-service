@@ -3,21 +3,22 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-// grid-area: 1 / 2 / 1 / 2;
 
 const BigPictureFrame = styled.div`
-  margin: 10px;
-  bottom: 1px;
-  border: 1px green dashed;
+  grid-area: 1 / 2 / 1 / 2;
+  max-width: 35vw;
+  max-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 `;
 
 const Img = styled.img`
-  max-height: 100%;
+  object-fit: cover;
   max-width: 100%;
-  object-fit: contain;
+  max-height: 430px;
+  box-shadow: 0 0 5px 5px white inset;
 `;
 
 export default class BigPicture extends React.Component {

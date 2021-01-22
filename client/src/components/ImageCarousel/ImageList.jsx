@@ -3,11 +3,9 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import ImageListEntry from './ImageListEntry';
 
-
 const ListWrapper = styled.div`
   grid-area: 1 / 1 / 1 / 1;
   height: fit-content;
-  margin: 10px;
   bottom: 1px;
   display: flex;
   flex-direction: column;
@@ -34,7 +32,6 @@ const ImageSlider = styled.div`
 `;
 
 const ScrollButton = styled.button`
-  position: relative;
   font-size: 20px;
   height: 30px;
   width: fit-content;
@@ -45,10 +42,10 @@ const ScrollButton = styled.button`
 `;
 
 const UpButton = styled(ScrollButton)`
-  // top: -30px;
+
 `;
 const DownButton = styled(ScrollButton)`
-  // bottom: -30px;
+
 `;
 
 export default class ImageList extends React.Component {
@@ -61,41 +58,45 @@ export default class ImageList extends React.Component {
       page: 0,
     };
 
-    this.scrollDown = this.scrollDown.bind(this);
-    this.scrollUp = this.scrollUp.bind(this);
-    console.log(this.maxPages);
+    this.scroll = this.scroll.bind(this);
   }
 
-  scrollUp() {
-    let { page } = this.state;
-    if (page > 0) {
-      page -= 1;
-      const canScrollUp = (page !== 0);
-      this.setState({ page, canScrollUp });
+  scroll(event) {
+    let { page, canScrollUp, canScrollDown } = this.state;
+    const direction = event.target.value;
+    if (direction === 'up') {
+      if (page > 0) {
+        page -= 1;
+        canScrollDown = true;
+        if (page === 0) {
+          canScrollUp = false;
+        }
+      }
+      this.setState({ canScrollUp, page });
+    } else if (direction === 'down') {
+      if (page < this.maxPages) {
+        page += 1;
+        canScrollUp = true;
+        if (page === this.maxPages) {
+          canScrollDown = false;
+        }
+      }
     }
-  }
-
-  scrollDown() {
-    let { page } = this.state;
-    if (page < this.maxPages) {
-      page += 1;
-      const canScrollDown = (page !== this.maxPages);
-      this.setState({ page, canScrollDown });
-    }
+    this.setState({ page, canScrollUp, canScrollDown });
   }
 
   render() {
-    const { urls } = this.props;
+    const { urls, changeBigPicture } = this.props;
     const { canScrollUp, canScrollDown, page } = this.state;
     return (
       <ListWrapper>
-        <UpButton enabled={canScrollUp} onClick={this.scrollUp}>▲</UpButton>
+        <UpButton enabled={canScrollUp} onClick={this.scroll} value="up">▲</UpButton>
         <ImageSliderFrame>
           <ImageSlider page={page}>
-            {urls.map((url, i) => <ImageListEntry url={url} key={`IMG${i + 1}`} />)}
+            {urls.map((url, i) => <ImageListEntry url={url} key={`IMG${i + 1}`} changeBigPicture={changeBigPicture(i)} />)}
           </ImageSlider>
         </ImageSliderFrame>
-        <DownButton enabled={canScrollDown} onClick={this.scrollDown}>▼</DownButton>
+        <DownButton enabled={canScrollDown} onClick={this.scroll} value="down">▼</DownButton>
       </ListWrapper>
     );
   }
@@ -103,4 +104,5 @@ export default class ImageList extends React.Component {
 
 ImageList.propTypes = {
   urls: PropTypes.arrayOf(PropTypes.string).isRequired,
+  changeBigPicture: PropTypes.func.isRequired,
 };

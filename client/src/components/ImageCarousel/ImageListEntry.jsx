@@ -23,14 +23,15 @@ const Img = styled.img`
 `;
 
 export default function ImageListEntry(props) {
-  const { url } = props;
+  const { url, changeBigPicture } = props;
   return (
     <ImageBorderWrapper>
-      <Img src={url} />
+      <Img src={url} onMouseOver={changeBigPicture} />
     </ImageBorderWrapper>
   );
 }
 
 ImageListEntry.propTypes = {
   url: PropTypes.string.isRequired,
+  changeBigPicture: PropTypes.func.isRequired,
 };
