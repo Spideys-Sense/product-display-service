@@ -7,13 +7,15 @@ import ProductDetails from './ProductDetails';
 import DepartmentList from './DepartmentList';
 
 const AppContainer = styled.div`
-  margin: auto;
-  min-width: 90%;
-  min-height: 80vh;
-  max-width: 55vw;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: fit-content;
+  max-width: 50vw;
+  max-height: 530px;
   border: 1px solid black;
   display: grid;
-  grid-template-columns: 530px 650px;
+  column-gap: 10px;
+  grid-template-columns: 45% 55%;
   grid-template-rows: 10% 90%;
 `;
 AppContainer.displayName = 'AppContainer';

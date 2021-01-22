@@ -12,7 +12,6 @@ const DetailsContainer = styled.div`
   grid-area: 2 / 2 / 2 / 2;
   margin: 10px;
   padding: 2px;
-  border: 1px red dashed;
 `;
 
 export default function ProductDetails(props) {
