@@ -29,17 +29,26 @@ export default class BigPicture extends React.Component {
 
   handleMouseMove(e) {
     const { updateHoverData } = this.props;
+
     const rect = e.target.getBoundingClientRect();
-    const x = Math.round(e.clientX - rect.x);
-    const y = Math.round(e.clientY - rect.y);
-    updateHoverData(x, y, true);
+
+    const xCenter = Math.round(rect.width / 2);
+    const yCenter = Math.round(rect.height / 2);
+
+    const mouseX = Math.round(e.clientX - rect.x);
+    const mouseY = Math.round(e.clientY - rect.y);
+
+    const xPos = mouseX - xCenter;
+    const yPos = mouseY - yCenter;
+    // console.log(xPos, yPos, rect.width, rect.height);
+    updateHoverData(xPos, yPos, true);
   }
 
   render() {
     const { url } = this.props;
     return (
-      <BigPictureFrame onPointerMove={this.handleMouseMove}>
-        <Img src={url} />
+      <BigPictureFrame>
+        <Img src={url} onPointerMove={this.handleMouseMove} />
       </BigPictureFrame>
     );
   }
