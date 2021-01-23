@@ -11,10 +11,10 @@ import ZoomModal from './ZoomModal';
 
 const DetailsContainer = styled.div`
   box-sizing: border-box;
-  grid-area: 2 / 2 / 2 / 2;
+  grid-area: 2 / 2;
   display: grid;
-  grid-template: 5fr 60fr 5fr 30fr / 60fr 40fr;
-  gap: 10px 10px;
+  grid-template: 28px 62fr 3fr 30fr / 400px 40fr;
+  gap: 2% 2%;
 `;
 
 export default function ProductDetails(props) {
