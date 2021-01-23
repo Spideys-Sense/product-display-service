@@ -13,10 +13,8 @@ const DetailsContainer = styled.div`
   box-sizing: border-box;
   grid-area: 2 / 2 / 2 / 2;
   display: grid;
-  grid-template: 15fr 50fr 5fr 30fr / 60fr 40fr;
+  grid-template: 5fr 60fr 5fr 30fr / 60fr 40fr;
   gap: 10px 10px;
-  justify-items: stretch;
-  align-items: stretch;
 `;
 
 export default function ProductDetails(props) {
