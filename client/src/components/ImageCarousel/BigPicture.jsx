@@ -3,7 +3,6 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-
 const BigPictureFrame = styled.div`
   grid-area: 1 / 2 / 1 / 2;
   max-width: 35vw;
@@ -24,23 +23,16 @@ const Img = styled.img`
 export default class BigPicture extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      mouseX: 0,
-      mouseY: 0
-    }
+    this.updateHoverData = props.updateHoverData;
     this.handleMouseMove = this.handleMouseMove.bind(this);
   }
 
   handleMouseMove(e) {
+    const { updateHoverData } = this.props;
     const rect = e.target.getBoundingClientRect();
     const x = Math.round(e.clientX - rect.x);
     const y = Math.round(e.clientY - rect.y);
-    console.log(x, y);
-    this.setState({
-      mouseX: x,
-      mouseY: y,
-    });
+    updateHoverData(x, y, true);
   }
 
   render() {
@@ -55,4 +47,5 @@ export default class BigPicture extends React.Component {
 
 BigPicture.propTypes = {
   url: PropTypes.string.isRequired,
+  updateHoverData: PropTypes.func.isRequired,
 };
