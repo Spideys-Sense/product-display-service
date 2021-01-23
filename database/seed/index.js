@@ -1,5 +1,6 @@
 const Chance = require('chance');
-const { db, models } = require('./index');
+const { db, models } = require('../index');
+const images = require('./images.js');
 
 const chance = new Chance();
 const foodAdjectives = ['Canned', 'Wet', 'Dry', 'Home-cooked', 'Artisanal', 'Raw', 'Bulk', 'Premium'];
@@ -35,35 +36,45 @@ chance.mixin({
     };
   },
   biteyImage(linkedItem) {
+    const randomIndex = chance.integer({ min: 0, max: images.all.length - 1 });
+    const randomImage = images.all[randomIndex];
     return {
       ItemId: linkedItem,
-      url: 'placeimg.com/640/480',
+      url: randomImage,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
   },
 });
 
-const seed = async (database, modelsObject) => {
-  await database.drop();
-  await database.sync();
-  for (let i = 1; i < 11; i += 1) {
-    modelsObject.Department.create(chance.biteyDepartment());
-  }
+const seed = () => {
+  db.sync({ force: true })
+    .then(() => db.sync({ force: true }))
+    .then(() => new Promise((resolve) => {
+      setTimeout((() => resolve('Start seeding!')), 1000);
+    }))
+    .then(() => {
+      for (let i = 1; i < 11; i += 1) {
+        models.Department.create(chance.biteyDepartment());
+      }
 
-  for (let i = 1; i < 101; i += 1) {
-    const dptId = chance.integer({ min: 1, max: 10 });
-    const newItem = chance.biteyFoodItem(dptId);
-    modelsObject.Item.create(newItem);
-  }
+      for (let i = 1; i < 101; i += 1) {
+        const dptId = chance.integer({ min: 1, max: 10 });
+        const newItem = chance.biteyFoodItem(dptId);
+        models.Item.create(newItem);
+      }
 
-  for (let i = 1; i < 101; i += 1) {
-    const imageCount = chance.integer({ min: 4, max: 13 });
-    for (let j = 1; j < imageCount; j += 1) {
-      modelsObject.Image.create(chance.biteyImage(i));
-    }
-  }
-  return Promise.resolve('Test');
+      for (let i = 1; i < 101; i += 1) {
+        const imageCount = chance.integer({ min: 4, max: 13 });
+        for (let j = 1; j < imageCount; j += 1) {
+          models.Image.create(chance.biteyImage(i));
+        }
+      }
+      return Promise.resolve('Test');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 seed(db, models);
