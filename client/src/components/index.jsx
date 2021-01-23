@@ -10,13 +10,14 @@ const AppContainer = styled.div`
   margin-left: auto;
   margin-right: auto;
   min-width: fit-content;
-  max-width: 50vw;
-  max-height: 530px;
+  width: 1200px;
+  height: 450px;
   border: 1px solid black;
   display: grid;
-  column-gap: 10px;
-  grid-template-columns: 45% 55%;
+  column-gap: 1%;
   grid-template-rows: 10% 90%;
+  grid-template-columns: 39% 60%;
+  overflow: hidden;
 `;
 AppContainer.displayName = 'AppContainer';
 

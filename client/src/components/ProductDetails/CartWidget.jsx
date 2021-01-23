@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const BuyBox = styled.div`
+  grid-area: 2 / 2 / 2 / 2;
   position: relative;
   max-width: 400px;
   min-width: 200px;
@@ -28,8 +29,6 @@ CartWidgetForm.displayName = 'CartWidgetForm';
 
 const QuantityDropDown = styled.select`
 position: absolute;
-width: 100%;
-height: 100%;
 -webkit-font-smoothing: antialiased;
 font-weight: 400;
 text-align: left;

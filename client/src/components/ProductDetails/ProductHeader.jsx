@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const Header = styled.h4`
-  margin: 10px;
-  padding: 2px;
+  grid-area: 1 / 1 / 1 / 2;
   border: 2px gray groove;
 `;
 

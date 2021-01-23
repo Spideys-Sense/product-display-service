@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const PriceBox = styled.div`
-  margin: 10px;
+  grid-area: 2 / 1 / 2 / 1;
   padding: 2px;
   border: 2px gray groove;
 `;

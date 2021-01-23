@@ -3,11 +3,14 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const Modal = styled.div`
+  opacity: ${(props) => ((props.active) ? 1 : 0)};
+  transition: opacity .3s linear;
+  grid-area: 5 / 5
+  // background-color: rgba(0, 0, 0, .25);
+  box-shadow: 0 0 2px 2px gray;
   z-index: 1;
   box-sizing: border-box;
   border: 1px;
-  width:400px;
-  height:400px;
   overflow: hidden;
   display: flex;
   justify-content: center;
