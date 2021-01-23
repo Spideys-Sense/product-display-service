@@ -12,12 +12,10 @@ const AppContainer = styled.div`
   min-width: fit-content;
   width: 1200px;
   height: 450px;
-  border: 1px solid black;
   display: grid;
   column-gap: 1%;
   grid-template-rows: 10% 90%;
   grid-template-columns: 39% 60%;
-  overflow: hidden;
 `;
 AppContainer.displayName = 'AppContainer';
 
