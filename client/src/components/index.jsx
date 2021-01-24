@@ -31,23 +31,13 @@ class App extends React.Component {
       },
     };
     this.updateHoverData = this.updateHoverData.bind(this);
+    this.updateCurrentItem = this.updateCurrentItem.bind(this);
   }
 
   componentDidMount() {
     // Get data from server
     const { id } = this.props;
-    let localItem;
-    axios.get(`/api/${id}/summary`)
-      .then((response) => response.data)
-      .then((servedItem) => {
-        localItem = servedItem;
-        return axios.get(`/api/${id}/images`);
-      })
-      .then((response) => response.data.imageUrls)
-      .then((servedImages) => {
-        localItem.images = servedImages;
-        this.setState(localItem);
-      });
+    this.updateCurrentItem(id);
   }
 
   updateHoverData(x, y, active) {
@@ -59,6 +49,21 @@ class App extends React.Component {
     };
     state.modalHoverData = newHoverData;
     this.setState(state);
+  }
+
+  updateCurrentItem(itemId) {
+    let localItem;
+    axios.get(`/api/${itemId}/summary`)
+      .then((response) => response.data)
+      .then((servedItem) => {
+        localItem = servedItem;
+        return axios.get(`/api/${itemId}/images`);
+      })
+      .then((response) => response.data.imageUrls)
+      .then((servedImages) => {
+        localItem.images = servedImages;
+        this.setState(localItem);
+      });
   }
 
   render() {
@@ -84,6 +89,7 @@ class App extends React.Component {
           stock={stock}
           variants={variants}
           modalHoverData={modalHoverData}
+          updateCurrentItem={this.updateCurrentItem}
         />
       </AppContainer>
     ) : ( // If no data from server, displays null page
