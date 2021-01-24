@@ -18,11 +18,26 @@ const Choice = styled.div`
   }
 `;
 
-export default function VariantSelectorOption(props) {
-  const { name, id } = props;
-  return (
-    <Choice>
-      {name}
-    </Choice>
-  );
+class VariantSelectorOption extends React.Component {
+  constructor(props) {
+    super(props);
+    this.id = props.id;
+    this.updateToThisVariant = this.updateToThisVariant.bind(this);
+  }
+
+  updateToThisVariant() {
+    const { updateCurrentItem } = this.props;
+    updateCurrentItem(this.id);
+  }
+
+  render() {
+    const { name } = this.props;
+    return (
+      <Choice onClick={this.updateToThisVariant}>
+        {name}
+      </Choice>
+    );
+  }
 }
+
+export default VariantSelectorOption;

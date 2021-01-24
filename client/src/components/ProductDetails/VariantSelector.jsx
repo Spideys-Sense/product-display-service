@@ -53,6 +53,7 @@ export default class VariantSelector extends React.Component {
 
   render() {
     const { gotData, variantData } = this.state;
+    const { updateCurrentItem } = this.props;
     if (!gotData) {
       return null;
     }
@@ -60,7 +61,7 @@ export default class VariantSelector extends React.Component {
     const VariantsList = variantData.map((vData) => {
       const { name, id } = vData;
       return (
-        <VariantSelectorOption name={name} id={id} />
+        <VariantSelectorOption name={name} id={id} updateCurrentItem={updateCurrentItem}/>
       );
     });
 
