@@ -7,6 +7,10 @@ const Item = db.define('Item', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  variantName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   price: {
     type: DataTypes.INTEGER,
     allowNull: false,
