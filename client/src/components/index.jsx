@@ -9,7 +9,7 @@ import Header from './Header/Header';
 
 const AppContainer = styled.div`
   position: absolute;
-  margin-top: 100px;
+  margin-top: 120px;
   margin-left: auto;
   margin-right: auto;
   min-width: fit-content;
