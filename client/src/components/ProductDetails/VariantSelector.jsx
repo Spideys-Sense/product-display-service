@@ -43,7 +43,10 @@ export default class VariantSelector extends React.Component {
     Promise.all(variantNameRequests)
       .then((results) => {
         console.log('results:', results);
-        const variantData = [];
+        const { variantData } = this.state;
+        const { mainId, variantName } = this.props;
+        const mainItemData = { id: mainId, name: variantName };
+        variantData.push(mainItemData);
         for (let i = 0; i < results.length; i += 1) {
           variantData.push(results[i]);
         }
@@ -53,15 +56,20 @@ export default class VariantSelector extends React.Component {
 
   render() {
     const { gotData, variantData } = this.state;
-    const { updateCurrentItem } = this.props;
+    const { updateCurrentItem, mainId } = this.props;
     if (!gotData) {
       return null;
     }
-
     const VariantsList = variantData.map((vData) => {
       const { name, id } = vData;
       return (
-        <VariantSelectorOption name={name} id={id} updateCurrentItem={updateCurrentItem}/>
+        <VariantSelectorOption
+          name={name}
+          id={id}
+          mainId={mainId}
+          updateCurrentItem={updateCurrentItem}
+          key={name + id}
+        />
       );
     });
 

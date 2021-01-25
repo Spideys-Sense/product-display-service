@@ -68,7 +68,7 @@ class App extends React.Component {
 
   render() {
     const {
-      id, name, price, discount, stock, variants, Department, images, modalHoverData,
+      id, name, variantName, price, discount, stock, variants, Department, images, modalHoverData,
     } = this.state;
 
     const department = Department;
@@ -83,6 +83,7 @@ class App extends React.Component {
         />
         <ProductDetails
           id={id}
+          variantName={variantName}
           name={name}
           price={price}
           discount={discount}
@@ -101,6 +102,7 @@ class App extends React.Component {
         <ImageCarousel images={['img']} />
         <ProductDetails
           id={0}
+          variantName="nullVariant"
           name="null"
           price={0}
           discount={0}

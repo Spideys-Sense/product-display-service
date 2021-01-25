@@ -12,6 +12,10 @@ const Choice = styled.div`
   border-bottom: 2px solid #D5D5D5;
   border-radius: 5px;
   cursor: pointer;
+  ${(props) => ((props.active)
+    ? `background-color: #FAF0DF;
+    border-color: #F0961B;`
+    : '')};
   &:hover {
     border: 1px solid #F0961B;
     border-bottom: 2px solid #F0961B;
@@ -21,19 +25,21 @@ const Choice = styled.div`
 class VariantSelectorOption extends React.Component {
   constructor(props) {
     super(props);
-    this.id = props.id;
     this.updateToThisVariant = this.updateToThisVariant.bind(this);
   }
 
   updateToThisVariant() {
-    const { updateCurrentItem } = this.props;
-    updateCurrentItem(this.id);
+    if (!this.isCurrentItem) {
+      const { id, updateCurrentItem } = this.props;
+      updateCurrentItem(id);
+    }
   }
 
   render() {
-    const { name } = this.props;
+    const { name, mainId, id } = this.props;
+    this.isCurrentItem = (mainId === id);
     return (
-      <Choice onClick={this.updateToThisVariant}>
+      <Choice onClick={this.updateToThisVariant} active={this.isCurrentItem}>
         {name}
       </Choice>
     );
