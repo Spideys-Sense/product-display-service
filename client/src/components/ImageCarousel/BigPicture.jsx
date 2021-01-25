@@ -11,6 +11,7 @@ const BigPictureFrame = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  cursor: zoom-in;
 `;
 
 const Img = styled.img`
@@ -25,6 +26,8 @@ export default class BigPicture extends React.Component {
     super(props);
     this.updateHoverData = props.updateHoverData;
     this.handleMouseMove = this.handleMouseMove.bind(this);
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
   }
 
   handleMouseMove(e) {
@@ -40,15 +43,26 @@ export default class BigPicture extends React.Component {
 
     const xPos = mouseX - xCenter;
     const yPos = mouseY - yCenter;
-    // console.log(xPos, yPos, rect.width, rect.height);
     updateHoverData(xPos, yPos, true);
+  }
+
+  handleMouseLeave(e) {
+    const { updateHoverData } = this.props;
+
+    updateHoverData(0, 0, false);
+  }
+
+  handleMouseEnter(e) {
+    const { updateHoverData } = this.props;
+
+    updateHoverData(0, 0, true);
   }
 
   render() {
     const { url } = this.props;
     return (
       <BigPictureFrame>
-        <Img src={url} onPointerMove={this.handleMouseMove} />
+        <Img src={url} onPointerMove={this.handleMouseMove} onPointerEnter={this.handleMouseEnter} onPointerLeave={this.handleMouseLeave} />
       </BigPictureFrame>
     );
   }

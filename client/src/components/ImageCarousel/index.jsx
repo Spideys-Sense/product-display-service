@@ -17,28 +17,17 @@ const CarouselContainer = styled.div`
 export default class ImageCarousel extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      activeIndex: 0,
-    };
-    this.changeBigPicture = this.changeBigPicture.bind(this);
-  }
-
-  changeBigPicture(activeIndex) {
-    // Returns a function to set big picture
-    return (function setBigPicture() {
-      this.setState({ activeIndex });
-    }).bind(this);
   }
 
   render() {
-    const { images, updateHoverData } = this.props;
-    const { activeIndex } = this.state;
-    const bigImage = images[activeIndex];
+    const {
+      images, updateHoverData, changeBigPicture, activeImageIndex,
+    } = this.props;
+    const bigImage = images[activeImageIndex];
 
     return (
       <CarouselContainer>
-        <ImageList urls={images} changeBigPicture={this.changeBigPicture} />
+        <ImageList urls={images} changeBigPicture={changeBigPicture} />
         <BigPicture url={bigImage} updateHoverData={updateHoverData} />
       </CarouselContainer>
     );

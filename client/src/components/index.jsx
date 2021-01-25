@@ -9,7 +9,7 @@ import DepartmentList from './DepartmentList';
 const AppContainer = styled.div`
   margin-left: auto;
   margin-right: auto;
-  min-width: fit-content;
+  // min-width: fit-content;
   width: 1200px;
   height: 450px;
   display: grid;
@@ -23,15 +23,18 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      dataLoaded: false,
       id: 0,
+      activeImageIndex: 0,
       modalHoverData: {
         x: 0,
         y: 0,
-        active: true,
+        active: false,
       },
     };
     this.updateHoverData = this.updateHoverData.bind(this);
     this.updateCurrentItem = this.updateCurrentItem.bind(this);
+    this.changeBigPicture = this.changeBigPicture.bind(this);
   }
 
   componentDidMount() {
@@ -41,7 +44,7 @@ class App extends React.Component {
   }
 
   updateHoverData(x, y, active) {
-    let state = this.state;
+    const { state } = this;
     const newHoverData = {
       x,
       y,
@@ -51,35 +54,59 @@ class App extends React.Component {
     this.setState(state);
   }
 
+  changeBigPicture(activeImageIndex) {
+    // Returns a function to set big picture
+    this.setState({ activeImageIndex });
+
+    // return (function setBigPicture() {
+    //   this.setState({ activeImageIndex });
+    //   updateZoomModalUrl();
+    // }).bind(this);
+  }
+
   updateCurrentItem(itemId) {
-    let localItem;
+    let newState;
     axios.get(`/api/${itemId}/summary`)
       .then((response) => response.data)
       .then((servedItem) => {
-        localItem = servedItem;
+        newState = servedItem;
         return axios.get(`/api/${itemId}/images`);
       })
       .then((response) => response.data.imageUrls)
       .then((servedImages) => {
-        localItem.images = servedImages;
-        this.setState(localItem);
+        newState.images = servedImages;
+        newState.dataLoaded = true;
+        this.setState(newState);
       });
   }
 
   render() {
     const {
-      id, name, variantName, price, discount, stock, variants, Department, images, modalHoverData,
+      dataLoaded,
+      id,
+      name,
+      variantName,
+      price,
+      discount,
+      stock,
+      variants,
+      Department,
+      images,
+      activeImageIndex,
+      modalHoverData,
     } = this.state;
 
     const department = Department;
 
     // Returns 'loading' div if no data passed in to avoid a pile of console errors
-    return (name) ? (
+    return (dataLoaded) ? (
       <AppContainer>
         <DepartmentList department={department} />
         <ImageCarousel
           images={images}
+          activeImageIndex={activeImageIndex}
           updateHoverData={this.updateHoverData}
+          changeBigPicture={this.changeBigPicture}
         />
         <ProductDetails
           id={id}
@@ -91,26 +118,11 @@ class App extends React.Component {
           variants={variants}
           modalHoverData={modalHoverData}
           updateCurrentItem={this.updateCurrentItem}
+          zoomModalUrl={images[activeImageIndex]}
         />
       </AppContainer>
     ) : ( // If no data from server, displays null page
-      <AppContainer>
-        <DepartmentList
-          department="no response from API"
-          updateHoverData={() => {}}
-        />
-        <ImageCarousel images={['img']} />
-        <ProductDetails
-          id={0}
-          variantName="nullVariant"
-          name="null"
-          price={0}
-          discount={0}
-          stock={0}
-          variants={[0]}
-          modalHoverData={{ x: 0, y: 0, active: false }}
-        />
-      </AppContainer>
+      <em>Loading...</em>
     );
   }
 }

@@ -23,10 +23,10 @@ const Img = styled.img`
 `;
 
 export default function ImageListEntry(props) {
-  const { url, changeBigPicture } = props;
+  const { url, changeBigPicture, i } = props;
   return (
     <ImageBorderWrapper>
-      <Img src={url} onMouseOver={changeBigPicture} />
+      <Img src={url} onMouseOver={() => { changeBigPicture(i); }} />
     </ImageBorderWrapper>
   );
 }

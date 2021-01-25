@@ -111,7 +111,7 @@ export default class ImageList extends React.Component {
         <UpButton enabled={canScrollUp} onClick={this.scroll} value="up">▲</UpButton>
         <ImageSliderFrame>
           <ImageSlider page={page}>
-            {urls.map((url, i) => <ImageListEntry url={url} key={`IMG${i + 1}`} changeBigPicture={changeBigPicture(i)} />)}
+            {urls.map((url, i) => <ImageListEntry url={url} i={i} key={`IMG${i + 1}`} changeBigPicture={changeBigPicture} />)}
           </ImageSlider>
         </ImageSliderFrame>
         <DownButton enabled={canScrollDown} onClick={this.scroll} value="down">▼</DownButton>

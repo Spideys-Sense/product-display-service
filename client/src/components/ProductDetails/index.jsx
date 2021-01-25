@@ -19,11 +19,11 @@ const DetailsContainer = styled.div`
 
 export default function ProductDetails(props) {
   const {
-    id, name, variantName, price, discount, stock, variants, modalHoverData, updateCurrentItem,
+    id, name, variantName, price, discount, stock, variants, modalHoverData, updateCurrentItem, zoomModalUrl,
   } = props;
   return (
     <DetailsContainer>
-      <ZoomModal hoverData={modalHoverData} />
+      <ZoomModal hoverData={modalHoverData} zoomModalUrl={zoomModalUrl} />
       <ProductHeader name={name} />
       <PriceView price={price} discount={discount} />
       <VariantSelector
