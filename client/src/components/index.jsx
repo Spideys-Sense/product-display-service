@@ -5,8 +5,11 @@ import axios from 'axios';
 import ImageCarousel from './ImageCarousel';
 import ProductDetails from './ProductDetails';
 import DepartmentList from './DepartmentList';
+import Header from './Header/Header';
 
 const AppContainer = styled.div`
+  position: absolute;
+  margin-top: 100px;
   margin-left: auto;
   margin-right: auto;
   min-width: fit-content;
@@ -54,31 +57,37 @@ class App extends React.Component {
 
     // Returns 'loading' div if no data passed in to avoid a pile of console errors
     return (name) ? (
-      <AppContainer>
-        <DepartmentList department={department} />
-        <ImageCarousel images={images} />
-        <ProductDetails
-          id={id}
-          name={name}
-          price={price}
-          discount={discount}
-          stock={stock}
-          variants={variants}
-        />
-      </AppContainer>
+      <div>
+        <Header />
+        <AppContainer>
+          <DepartmentList department={department} />
+          <ImageCarousel images={images} />
+          <ProductDetails
+            id={id}
+            name={name}
+            price={price}
+            discount={discount}
+            stock={stock}
+            variants={variants}
+          />
+        </AppContainer>
+      </div>
     ) : (
-      <AppContainer>
-        <DepartmentList department={'null'} />
-        <ImageCarousel images={['img']} />
-        <ProductDetails
-          id={0}
-          name={'null'}
-          price={0}
-          discount={0}
-          stock={0}
-          variants={[0]}
-        />
-      </AppContainer>
+      <div>
+        <Header />
+        <AppContainer>
+          <DepartmentList department={'null'} />
+          <ImageCarousel images={['img']} />
+          <ProductDetails
+            id={0}
+            name={'null'}
+            price={0}
+            discount={0}
+            stock={0}
+            variants={[0]}
+          />
+        </AppContainer>
+      </div>
     );
   }
 }

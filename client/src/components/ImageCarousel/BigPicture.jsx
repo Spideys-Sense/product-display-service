@@ -36,7 +36,7 @@ export default class BigPicture extends React.Component {
     const rect = e.target.getBoundingClientRect();
     const x = Math.round(e.clientX - rect.x);
     const y = Math.round(e.clientY - rect.y);
-    console.log(x, y);
+    // console.log(x, y);
     this.setState({
       mouseX: x,
       mouseY: y,
