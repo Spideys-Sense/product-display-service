@@ -43,8 +43,9 @@ export default class BigPicture extends React.Component {
   }
 
   handleMouseLeave(e) {
+    const { updateHoverData } = this.props;
     const { xPercent, yPercent } = this.getMousePosPercentage(e);
-    this.throttledUpdate(xPercent, yPercent, false);
+    updateHoverData(xPercent, yPercent, false);
   }
 
   handleMouseEnter(e) {
