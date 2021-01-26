@@ -71,13 +71,7 @@ class App extends React.Component {
   }
 
   changeBigPicture(activeImageIndex) {
-    // Returns a function to set big picture
     this.setState({ activeImageIndex });
-
-    // return (function setBigPicture() {
-    //   this.setState({ activeImageIndex });
-    //   updateZoomModalUrl();
-    // }).bind(this);
   }
 
   updateCurrentItem(itemId) {
