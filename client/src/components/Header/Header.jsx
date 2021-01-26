@@ -116,10 +116,9 @@ const Help = styled.span`
   } */
 `;
 
-//thing thgat u hover on to change display
+// thing thgat u hover on to change display
 
-//drop down content
-
+// drop down content
 
 const HelpDropDownContent = styled.div`
   display: none;
@@ -198,6 +197,7 @@ const HelpDropDownContent = styled.div`
 `;
 
 const Account = styled.span`
+  position: relative;
   padding: 10px;
   display: inline-block;
   :hover {
@@ -217,6 +217,28 @@ const NameAccount = styled(Account)`
   }
 `;
 
+const AccountDropDownContent = styled.div`
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  /* padding: 12px 16px; */
+  z-index: 1;
+  ${Account}:hover & {
+    right: 0;
+    display: block;
+    justify-content: space-between;
+    color: #438ed2;
+    background-color: white;
+    div {
+      font-size: 14px;
+      padding: 10px;
+      border: 1px solid #e6e6e6;
+    }
+  }
+`;
+
 const Cart = styled.span`
   position: relative;
   border-left: 1px solid white;
@@ -226,6 +248,52 @@ const Cart = styled.span`
     transition: background-color 0.17s ease-in-out;
     background-color: rgba(0,0,0,.2);
     cursor: pointer;
+  }
+`;
+
+const CartDropDownContentZero = styled.div`
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  /* padding: 12px 16px; */
+  z-index: 1;
+  ${Cart}:hover & {
+    left: -162px;
+    top: 40px;
+    padding: 25px 15px 18px 15px;
+    width: 250px;
+    height: 75px;
+    display: block;
+    background-color: white;
+    .emptyTitle {
+      color: black;
+      font-size: 14px;
+    }
+    .emptyText {
+      margin-top: 20px;
+      color: black;
+      font-size: 12px;
+    }
+    a {
+      color: #438ed2;
+      text-decoration: none;
+    }
+  }
+`;
+
+const CartDropDownContentMore = styled.div`
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  /* padding: 12px 16px; */
+  z-index: 1;
+  ${Cart}:hover & {
+    display: block;
+    color: black;
   }
 `;
 
@@ -310,7 +378,7 @@ const FreeShipping = styled.span`
 const VSign = styled.span`
 `;
 
-const Header = () => (
+const Header = ({ cartAmount }) => (
   <StyledWrapper>
     <StyledTop>
       <StyledImg src={img} alt="logo" />
@@ -324,7 +392,7 @@ const Header = () => (
       </StyledForm>
       <AccountInfo>
         <Help>
-          24/7 Help
+          24/7 help
           <StyledDownArrow viewBox="0 0 11 7" xmlns="http://www.w3.org/2000/svg">
             <path d="M5.5 4.98L1.63 1.1a.37.37 0 0 0-.52 0 .38.38 0 0 0 0 .53l4.12 4.12c.08.08.17.11.27.11s.2-.03.27-.1l4.12-4.13a.38.38 0 0 0 0-.53.37.37 0 0 0-.52 0L5.5 4.98z" />
           </StyledDownArrow>
@@ -335,12 +403,12 @@ const Header = () => (
             <br />
             <div className="chatContact">
               <span className="chat">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.43 13.74c0 1.57.9 3 2.35 3.98h-.06c-1.4 0-2.71-.24-3.88-.66l-2.87 1.79.64-2.95C3 14.74 2 13.14 2 11.36 2 7.85 5.9 5 10.72 5c3.59 0 6.67 1.58 8 3.84a9.28 9.28 0 0 0-3.04-.5c-4 0-7.25 2.42-7.25 5.4zm13.57 0c0 1.32-.82 2.55-2.25 3.4l.3 1.86-2-1.14c-.72.2-1.49.3-2.27.3-3.43 0-6.22-1.98-6.22-4.42s2.79-4.43 6.22-4.43c3.43 0 6.22 2 6.22 4.43z"></path></svg>
-                chat live
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.43 13.74c0 1.57.9 3 2.35 3.98h-.06c-1.4 0-2.71-.24-3.88-.66l-2.87 1.79.64-2.95C3 14.74 2 13.14 2 11.36 2 7.85 5.9 5 10.72 5c3.59 0 6.67 1.58 8 3.84a9.28 9.28 0 0 0-3.04-.5c-4 0-7.25 2.42-7.25 5.4zm13.57 0c0 1.32-.82 2.55-2.25 3.4l.3 1.86-2-1.14c-.72.2-1.49.3-2.27.3-3.43 0-6.22-1.98-6.22-4.42s2.79-4.43 6.22-4.43c3.43 0 6.22 2 6.22 4.43z" /></svg>
+                Chat Live
               </span>
               <span className="contact">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 17" class="cw-icon__image"><path d="M23.05 4.09c0-.37-.26-.6-.66-.36L11.48 10.8.66 3.73A.42.42 0 0 0 0 4.1v11.64c0 .39.3.7.66.7h21.73c.36 0 .66-.31.66-.7V4.09zm-.66-2.12L11.48 9.03.66 1.97c-.34-.2-.66-.32-.66-.7V.7C0 .3.3 0 .66 0h21.73c.36 0 .66.32.66.7v.56c.02.38-.26.47-.66.71z"></path></svg>
-                contact us
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 17"><path d="M23.05 4.09c0-.37-.26-.6-.66-.36L11.48 10.8.66 3.73A.42.42 0 0 0 0 4.1v11.64c0 .39.3.7.66.7h21.73c.36 0 .66-.31.66-.7V4.09zm-.66-2.12L11.48 9.03.66 1.97c-.34-.2-.66-.32-.66-.7V.7C0 .3.3 0 .66 0h21.73c.36 0 .66.32.66.7v.56c.02.38-.26.47-.66.71z" /></svg>
+                Contact Us
               </span>
             </div>
             <div className="bottom">
@@ -355,20 +423,47 @@ const Header = () => (
         <Account>
           <NameAccount>Hi, User!</NameAccount>
           <br />
-          your account
+          account
+          <AccountDropDownContent>
+            <div>Account</div>
+            <div>Orders</div>
+            <div>Manage Autoship</div>
+            <div>Favorites</div>
+            <div>Profile</div>
+            <div>Prescriptions</div>
+            <div>My Pet Health</div>
+            <div>Connect with a Vet</div>
+            <div>Pet Profile</div>
+            <div>Sign in!</div>
+          </AccountDropDownContent>
           <StyledDownArrow viewBox="0 0 11 7" xmlns="http://www.w3.org/2000/svg">
             <path d="M5.5 4.98L1.63 1.1a.37.37 0 0 0-.52 0 .38.38 0 0 0 0 .53l4.12 4.12c.08.08.17.11.27.11s.2-.03.27-.1l4.12-4.13a.38.38 0 0 0 0-.53.37.37 0 0 0-.52 0L5.5 4.98z" />
           </StyledDownArrow>
         </Account>
         <Cart>
-          <StyledCartSvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 19" class="sfw-header-nav-cart__icon">
+          <StyledCartSvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 19">
             <path d="M21.93 3.063H5.917l-.24-.843C4.958-.37 1.458-.818.224 1.537c-.557.986.908 1.83 1.466.845.59-1.04 2.25-.84 2.465.303l3.62 12.77a2.278 2.278 0 0 0-1.82-.982c-1.21 0-2.29.99-2.29 2.21s.98 2.21 2.29 2.21a2.2 2.2 0 0 0 2.233-2.704h8.402a2.2 2.2 0 0 0 2.23 2.716 2.2 2.2 0 0 0 2.29-2.21c0-1.208-.96-2.287-2.253-2.21l-.03-.002H9.255L8.68 12.8l12.382-1.826.867-7.91" />
           </StyledCartSvg>
-          <StyledCartAmount>0</StyledCartAmount>
+          <StyledCartAmount>{cartAmount}</StyledCartAmount>
           cart
           <StyledDownArrow viewBox="0 0 11 7" xmlns="http://www.w3.org/2000/svg">
             <path d="M5.5 4.98L1.63 1.1a.37.37 0 0 0-.52 0 .38.38 0 0 0 0 .53l4.12 4.12c.08.08.17.11.27.11s.2-.03.27-.1l4.12-4.13a.38.38 0 0 0 0-.53.37.37 0 0 0-.52 0L5.5 4.98z" />
           </StyledDownArrow>
+          {cartAmount === 0
+            ? (
+              <CartDropDownContentZero cartAmount={cartAmount}>
+                <div className="emptyTitle">Your Cart is empty</div>
+                <div className="emptyText">
+                  Your cart is empty and we can't wait to see what you put inside!
+                  <a href="#"> Shop now!</a>
+                </div>
+              </CartDropDownContentZero>
+            )
+            : (
+              <CartDropDownContentMore>
+                More than 0 items
+              </CartDropDownContentMore>
+            )}
         </Cart>
       </AccountInfo>
     </StyledTop>
