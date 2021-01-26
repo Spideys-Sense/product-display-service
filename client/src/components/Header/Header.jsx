@@ -96,12 +96,16 @@ const StyledDownArrow = styled.svg`
 `;
 
 const Help = styled.span`
+  position: relative;
+  display: inline-block;
+
   padding: 10px;
   border-right: 1px solid white;
   :hover {
     transition: background-color 0.17s ease-in-out;
     background-color: rgba(0,0,0,.2);
     cursor: pointer;
+    display: inline;
   }
   /* ::after {
     margin-left: 10px;
@@ -110,6 +114,87 @@ const Help = styled.span`
     border-right: 1px solid hsla(0,0%,100%,.2);
     content: "";
   } */
+`;
+
+//thing thgat u hover on to change display
+
+//drop down content
+
+
+const HelpDropDownContent = styled.div`
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+  transition: 1s ease-in 1s;
+  ${Help}:hover & {
+    display: block;
+    right: 0;
+    background-color: white;
+    color: black;
+    font-size: 14px;
+    padding: 10px 0;
+    line-height: 25px;
+    text-align: center;
+    .text {
+      padding: 35px;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .number {
+      padding: 35px;
+      font-size: 20px;
+      color: orange;
+    }
+    .chatContact {
+      border: 1px solid  #cccccc;
+      background-color: #e6e6e6;
+      display: grid;
+      grid-template-columns: 50% 50%;
+    }
+    .chat {
+      color: #438ed2;
+      padding: 10px;
+      position: relative;
+      border-right: 1px solid  #cccccc;
+      grid-template-start: 1;
+      :hover {
+        background-color: white;
+      }
+    }
+    .chat svg {
+      position: relative;
+      top: 4px;
+      fill: #438ed2;
+      width: 20px;
+    }
+    .contact {
+      color: #438ed2;
+      padding: 10px;
+      position: relative;
+      grid-template-start: 1;
+      :hover {
+        background-color: white;
+      }
+    }
+    .contact svg {
+      position: relative;
+      top: 1px;
+      fill: #438ed2;
+      width: 15px;
+    }
+    .bottom {
+      color: #438ed2;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
 `;
 
 const Account = styled.span`
@@ -243,6 +328,29 @@ const Header = () => (
           <StyledDownArrow viewBox="0 0 11 7" xmlns="http://www.w3.org/2000/svg">
             <path d="M5.5 4.98L1.63 1.1a.37.37 0 0 0-.52 0 .38.38 0 0 0 0 .53l4.12 4.12c.08.08.17.11.27.11s.2-.03.27-.1l4.12-4.13a.38.38 0 0 0 0-.53.37.37 0 0 0-.52 0L5.5 4.98z" />
           </StyledDownArrow>
+          <HelpDropDownContent>
+            <span className="text">Get help from our experts 24/7</span>
+            <br />
+            <span className="number">1-800-SPI-DEYS</span>
+            <br />
+            <div className="chatContact">
+              <span className="chat">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.43 13.74c0 1.57.9 3 2.35 3.98h-.06c-1.4 0-2.71-.24-3.88-.66l-2.87 1.79.64-2.95C3 14.74 2 13.14 2 11.36 2 7.85 5.9 5 10.72 5c3.59 0 6.67 1.58 8 3.84a9.28 9.28 0 0 0-3.04-.5c-4 0-7.25 2.42-7.25 5.4zm13.57 0c0 1.32-.82 2.55-2.25 3.4l.3 1.86-2-1.14c-.72.2-1.49.3-2.27.3-3.43 0-6.22-1.98-6.22-4.42s2.79-4.43 6.22-4.43c3.43 0 6.22 2 6.22 4.43z"></path></svg>
+                chat live
+              </span>
+              <span className="contact">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 17" class="cw-icon__image"><path d="M23.05 4.09c0-.37-.26-.6-.66-.36L11.48 10.8.66 3.73A.42.42 0 0 0 0 4.1v11.64c0 .39.3.7.66.7h21.73c.36 0 .66-.31.66-.7V4.09zm-.66-2.12L11.48 9.03.66 1.97c-.34-.2-.66-.32-.66-.7V.7C0 .3.3 0 .66 0h21.73c.36 0 .66.32.66.7v.56c.02.38-.26.47-.66.71z"></path></svg>
+                contact us
+              </span>
+            </div>
+            <div className="bottom">
+              <span>Track Order</span>
+              <span>-</span>
+              <span>FAQs</span>
+              <span>-</span>
+              <span>Shipping Info</span>
+            </div>
+          </HelpDropDownContent>
         </Help>
         <Account>
           <NameAccount>Hi, User!</NameAccount>
