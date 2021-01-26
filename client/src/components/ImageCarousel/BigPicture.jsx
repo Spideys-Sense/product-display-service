@@ -24,45 +24,82 @@ const Img = styled.img`
 export default class BigPicture extends React.Component {
   constructor(props) {
     super(props);
-    this.updateHoverData = props.updateHoverData;
+    this.state = {
+      throttleUpdate: false,
+    };
     this.handleMouseMove = this.handleMouseMove.bind(this);
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
+    this.refDimensions = this.refDimensions.bind(this);
+    this.throttledUpdate = this.throttledUpdate.bind(this);
+
+    this.myRef = React.createRef();
   }
 
   handleMouseMove(e) {
-    const { updateHoverData } = this.props;
+    const { xPercent, yPercent } = this.getMousePosPercentage(e);
 
-    const rect = e.target.getBoundingClientRect();
-
-    const xCenter = Math.round(rect.width / 2);
-    const yCenter = Math.round(rect.height / 2);
-
-    const mouseX = Math.round(e.clientX - rect.x);
-    const mouseY = Math.round(e.clientY - rect.y);
-
-    const xPos = mouseX - xCenter;
-    const yPos = mouseY - yCenter;
-    updateHoverData(xPos, yPos, true);
+    this.throttledUpdate(xPercent, yPercent, true);
   }
 
   handleMouseLeave(e) {
-    const { updateHoverData } = this.props;
-
-    updateHoverData(0, 0, false);
+    const { xPercent, yPercent } = this.getMousePosPercentage(e);
+    this.throttledUpdate(xPercent, yPercent, false);
   }
 
   handleMouseEnter(e) {
-    const { updateHoverData } = this.props;
+    const { updateModalDimensions } = this.props;
+    const box = this.refDimensions();
+    const { xPercent, yPercent } = this.getMousePosPercentage(e);
 
-    updateHoverData(0, 0, true);
+    this.throttledUpdate(xPercent, yPercent, false);
+    updateModalDimensions(box.width, box.height);
+  }
+
+  getMousePosPercentage(event) {
+    const box = this.refDimensions();
+
+    const mouseX = Math.round(event.clientX - box.x);
+    const mouseY = Math.round(event.clientY - box.y);
+
+    const xPercent = ((mouseX / box.width).toFixed(2) * 100);
+    const yPercent = ((mouseY / box.height).toFixed(2) * 100);
+
+    return { xPercent, yPercent };
+  }
+
+  throttledUpdate(x, y, active) {
+    // Improve client performance & animation smoothness slightly
+    // by only updating zoom modal's position every 5ms
+    const { throttleUpdate } = this.state;
+    if (!throttleUpdate) {
+      this.setState({
+        throttleUpdate: true,
+      });
+      setTimeout(() => {
+        this.setState({ throttleUpdate: false });
+      }, 5);
+      const { updateHoverData } = this.props;
+      updateHoverData(x, y, active);
+    }
+  }
+
+  refDimensions() {
+    const dimensions = this.myRef.current.getBoundingClientRect();
+    return dimensions;
   }
 
   render() {
     const { url } = this.props;
     return (
       <BigPictureFrame>
-        <Img src={url} onPointerMove={this.handleMouseMove} onPointerEnter={this.handleMouseEnter} onPointerLeave={this.handleMouseLeave} />
+        <Img
+          src={url}
+          onPointerMove={this.handleMouseMove}
+          onPointerEnter={this.handleMouseEnter}
+          onPointerLeave={this.handleMouseLeave}
+          ref={this.myRef}
+        />
       </BigPictureFrame>
     );
   }
@@ -71,4 +108,5 @@ export default class BigPicture extends React.Component {
 BigPicture.propTypes = {
   url: PropTypes.string.isRequired,
   updateHoverData: PropTypes.func.isRequired,
+  updateModalDimensions: PropTypes.func.isRequired,
 };
