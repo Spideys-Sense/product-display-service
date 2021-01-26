@@ -8,7 +8,9 @@ const ImageBorderWrapper = styled.div`
   height: 60px;
   margin: 5px;
   bottom: 1px;
-  border: 1px #D5D5D5 solid;
+  border: ${(props) => ((props.activeImageIndex === props.i)
+    ? '1px #F0961B solid;'
+    : '1px #D5D5D5 solid;')}
   border-radius: 4px;
   display: flex;
   justify-content: center;
@@ -23,9 +25,11 @@ const Img = styled.img`
 `;
 
 export default function ImageListEntry(props) {
-  const { url, changeBigPicture, i } = props;
+  const {
+    url, changeBigPicture, activeImageIndex, i,
+  } = props;
   return (
-    <ImageBorderWrapper>
+    <ImageBorderWrapper activeImageIndex={activeImageIndex} i={i}>
       <Img src={url} onMouseOver={() => { changeBigPicture(i); }} />
     </ImageBorderWrapper>
   );
@@ -34,4 +38,6 @@ export default function ImageListEntry(props) {
 ImageListEntry.propTypes = {
   url: PropTypes.string.isRequired,
   changeBigPicture: PropTypes.func.isRequired,
+  activeImageIndex: PropTypes.number.isRequired,
+  i: PropTypes.number.isRequired,
 };
