@@ -31,10 +31,15 @@ class App extends React.Component {
         y: 0,
         active: false,
       },
+      modalDimensions: {
+        width: 0,
+        height: 0,
+      },
     };
     this.updateHoverData = this.updateHoverData.bind(this);
     this.updateCurrentItem = this.updateCurrentItem.bind(this);
     this.changeBigPicture = this.changeBigPicture.bind(this);
+    this.updateModalDimensions = this.updateModalDimensions.bind(this);
   }
 
   componentDidMount() {
@@ -43,15 +48,26 @@ class App extends React.Component {
     this.updateCurrentItem(id);
   }
 
-  updateHoverData(x, y, active) {
+  updateHoverData(x, y, active, width, height) {
     const { state } = this;
     const newHoverData = {
       x,
       y,
       active,
     };
+    if (width && height) {
+      newHoverData.width = width;
+      newHoverData.height = height;
+    } else {
+      newHoverData.width = state.modalHoverData.width;
+      newHoverData.height = state.modalHoverData.height;
+    }
     state.modalHoverData = newHoverData;
     this.setState(state);
+  }
+
+  updateModalDimensions(width, height) {
+    this.setState({ modalDimensions: { width, height } });
   }
 
   changeBigPicture(activeImageIndex) {
@@ -94,6 +110,7 @@ class App extends React.Component {
       images,
       activeImageIndex,
       modalHoverData,
+      modalDimensions,
     } = this.state;
 
     const department = Department;
@@ -106,6 +123,7 @@ class App extends React.Component {
           images={images}
           activeImageIndex={activeImageIndex}
           updateHoverData={this.updateHoverData}
+          updateModalDimensions={this.updateModalDimensions}
           changeBigPicture={this.changeBigPicture}
         />
         <ProductDetails
@@ -117,6 +135,7 @@ class App extends React.Component {
           stock={stock}
           variants={variants}
           modalHoverData={modalHoverData}
+          modalDimensions={modalDimensions}
           updateCurrentItem={this.updateCurrentItem}
           zoomModalUrl={images[activeImageIndex]}
         />
