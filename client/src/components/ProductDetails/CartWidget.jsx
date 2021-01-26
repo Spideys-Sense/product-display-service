@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const BuyBox = styled.div`
+  grid-area: 2 / 2 / 2 / 2;
   position: relative;
+  height: 210px;
   max-width: 400px;
   min-width: 200px;
   width: 20vw;
@@ -18,38 +20,39 @@ BuyBox.displayName = 'BuyBox';
 
 const CartWidgetForm = styled.form`
   position: relative;
-  font-family: Roboto,serif;
   font-size: 10px;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
   padding: 20px;
+  display: grid;
+  grid-template-rows: 48px 48px;
+  grid-template-columns: 215px;
+  row-gap: 15px;
 `;
 CartWidgetForm.displayName = 'CartWidgetForm';
 
 const QuantityDropDown = styled.select`
-position: absolute;
-width: 100%;
-height: 100%;
--webkit-font-smoothing: antialiased;
+padding-left: 5px;
+grid-area: 1 1;
 font-weight: 400;
 text-align: left;
-line-height: 1.2em;
 border: 1px solid #ccc;
-outline: none;
 background-color: #fff;
-background-repeat: no-repeat;
-background-position: right 50%;
 transition: border-color .2s ease-out,box-shadow .2s ease-out,padding .2s ease-out;
-appearance: none;
-font-family: inherit;
-box-sizing: border-box;
 font-size: 16px;
-border-radius: .4rem;
-padding: 2rem 3rem .7rem 1rem;
+border-radius: 4px;
+outline:none;
+&:hover {
+  border-color: #f5a623;
+}
+&:focus {
+  box-shadow: 0 0 0 1px #f5a623;
+}
 `;
 QuantityDropDown.displayName = 'QuantityDropDown';
 
 const CartButton = styled.input`
+grid-row: 2;
 text-align: center;
 position: relative;
 display: inline-block;
@@ -57,7 +60,7 @@ vertical-align: middle;
 width: 100%;
 cursor: pointer;
 font-family: "Roboto", "Franklin Gothic Medium", Tahoma, sans-serif;
-font-size: 1.4rem;
+font-size: 18px;
 font-weight: bold;
 text-decoration: none;
 white-space: nowrap;
@@ -78,13 +81,26 @@ font-weight: 700;
 `;
 CartButton.displayName = 'CartButton';
 
-const FavoriteButton = styled.button`
+const FavoriteArea = styled.div`
   grid-row: 2;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
+
+const Heart = styled.p`
+  all:unset;
+  margin: 3px;
+  font-weight: bold;
+  color: #1159B0;
+`;
+
+const FavoriteButton = styled.p`
+  color: #207DE9;
+`;
+
 FavoriteButton.displayName = 'FavoriteButton';
 
 export default class CartWidget extends React.Component {
@@ -121,16 +137,22 @@ export default class CartWidget extends React.Component {
     return (
       <BuyBox>
         <CartWidgetForm onSubmit={this.handleSubmit}>
-          <QuantityDropDown value={quantity} onChange={this.handleSelect}>
+          <QuantityDropDown name="Quantity" onChange={this.handleSelect}>
+            <option value="" disabled selected>Select Quantity</option>
             {Array(12)
               .fill(0)
               .map((e, i) => <option value={i + 1} key={`BUY-QUANT-${i.toString()}`}>{i + 1}</option>)}
           </QuantityDropDown>
           <CartButton type="submit" value="Add to Cart" />
         </CartWidgetForm>
-        <FavoriteButton label="favoriteButton" type="button">
-          Add to favorites!
-        </FavoriteButton>
+        <FavoriteArea>
+          <FavoriteButton label="favoriteButton" type="button">
+            <Heart>
+              ♡
+            </Heart>
+            Add to favorites!
+          </FavoriteButton>
+        </FavoriteArea>
       </BuyBox>
     );
   }

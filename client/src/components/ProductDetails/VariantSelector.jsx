@@ -3,9 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const VariantSelectorBox = styled.div`
-  margin: 10px;
-  padding: 2px;
-  border: 1px green solid;
+  grid-area: 4 / 1 / 4 / 1;
 `;
 
 export default class VariantSelector extends React.Component {

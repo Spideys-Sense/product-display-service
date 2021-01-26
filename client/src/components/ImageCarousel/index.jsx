@@ -14,7 +14,6 @@ const CarouselContainer = styled.div`
   grid-template-columns: 1fr 5fr;
 `;
 
-
 export default class ImageCarousel extends React.Component {
   constructor(props) {
     super(props);
@@ -33,14 +32,14 @@ export default class ImageCarousel extends React.Component {
   }
 
   render() {
-    const { images } = this.props;
+    const { images, updateHoverData } = this.props;
     const { activeIndex } = this.state;
     const bigImage = images[activeIndex];
 
     return (
       <CarouselContainer>
         <ImageList urls={images} changeBigPicture={this.changeBigPicture} />
-        <BigPicture url={bigImage} />
+        <BigPicture url={bigImage} updateHoverData={updateHoverData} />
       </CarouselContainer>
     );
   }
@@ -48,4 +47,5 @@ export default class ImageCarousel extends React.Component {
 
 ImageCarousel.propTypes = {
   images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  updateHoverData: PropTypes.func.isRequired,
 };

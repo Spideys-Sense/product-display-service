@@ -32,20 +32,38 @@ const ImageSlider = styled.div`
 `;
 
 const ScrollButton = styled.button`
+  all: unset;
   font-size: 20px;
-  height: 30px;
+  height: 24px;
   width: fit-content;
   border: 0;
-  padding: 2px 4px;
   margin: 0 auto;
-  color: ${(props) => ((props.enabled) ? '#115AB0' : '#D5D5D5')}
+  }};
+
 `;
 
 const UpButton = styled(ScrollButton)`
-
+${(props) => {
+    if (props.enabled) {
+      return `color: #115AB0;
+              &:hover {
+                transform: scale(1.2, 1.2) translateY(-2px);
+              }`;
+    }
+    return 'color: #D5D5D5;';
+  }}
 `;
-const DownButton = styled(ScrollButton)`
 
+const DownButton = styled(ScrollButton)`
+${(props) => {
+    if (props.enabled) {
+      return `color: #115AB0;
+              &:hover {
+                transform: scale(1.2, 1.2) translateY(2px);
+              }`;
+    }
+    return 'color: #D5D5D5;';
+  }}
 `;
 
 export default class ImageList extends React.Component {

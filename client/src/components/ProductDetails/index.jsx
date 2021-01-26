@@ -7,21 +7,23 @@ import PriceView from './PriceView';
 import VariantSelector from './VariantSelector';
 import CartWidget from './CartWidget';
 import InStock from './InStock';
+import ZoomModal from './ZoomModal';
 
 const DetailsContainer = styled.div`
-  grid-area: 2 / 2 / 2 / 2;
-  margin: 10px;
-  padding: 2px;
+  box-sizing: border-box;
+  grid-area: 2 / 2;
+  display: grid;
+  grid-template: 28px 62fr 3fr 30fr / 400px 40fr;
+  gap: 2% 2%;
 `;
 
 export default function ProductDetails(props) {
   const {
-    id, name, price, discount, stock, variants,
+    id, name, price, discount, stock, variants, modalHoverData
   } = props;
-
   return (
     <DetailsContainer>
-      Product Details
+      <ZoomModal hoverData={modalHoverData} />
       <ProductHeader name={name} />
       <PriceView price={price} discount={discount} />
       <VariantSelector variants={variants} />

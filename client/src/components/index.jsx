@@ -10,13 +10,12 @@ const AppContainer = styled.div`
   margin-left: auto;
   margin-right: auto;
   min-width: fit-content;
-  max-width: 50vw;
-  max-height: 530px;
-  border: 1px solid black;
+  width: 1200px;
+  height: 450px;
   display: grid;
-  column-gap: 10px;
-  grid-template-columns: 45% 55%;
+  column-gap: 1%;
   grid-template-rows: 10% 90%;
+  grid-template-columns: 39% 60%;
 `;
 AppContainer.displayName = 'AppContainer';
 
@@ -25,7 +24,13 @@ class App extends React.Component {
     super(props);
     this.state = {
       id: 0,
+      modalHoverData: {
+        x: 0,
+        y: 0,
+        active: true,
+      },
     };
+    this.updateHoverData = this.updateHoverData.bind(this);
   }
 
   componentDidMount() {
@@ -45,9 +50,20 @@ class App extends React.Component {
       });
   }
 
+  updateHoverData(x, y, active) {
+    let state = this.state;
+    const newHoverData = {
+      x,
+      y,
+      active,
+    };
+    state.modalHoverData = newHoverData;
+    this.setState(state);
+  }
+
   render() {
     const {
-      id, name, price, discount, stock, variants, Department, images,
+      id, name, price, discount, stock, variants, Department, images, modalHoverData,
     } = this.state;
 
     const department = Department;
@@ -56,7 +72,10 @@ class App extends React.Component {
     return (name) ? (
       <AppContainer>
         <DepartmentList department={department} />
-        <ImageCarousel images={images} />
+        <ImageCarousel
+          images={images}
+          updateHoverData={this.updateHoverData}
+        />
         <ProductDetails
           id={id}
           name={name}
@@ -64,19 +83,24 @@ class App extends React.Component {
           discount={discount}
           stock={stock}
           variants={variants}
+          modalHoverData={modalHoverData}
         />
       </AppContainer>
-    ) : (
+    ) : ( // If no data from server, displays null page
       <AppContainer>
-        <DepartmentList department={'null'} />
+        <DepartmentList
+          department="no response from API"
+          updateHoverData={() => {}}
+        />
         <ImageCarousel images={['img']} />
         <ProductDetails
           id={0}
-          name={'null'}
+          name="null"
           price={0}
           discount={0}
           stock={0}
           variants={[0]}
+          modalHoverData={{ x: 0, y: 0, active: false }}
         />
       </AppContainer>
     );
