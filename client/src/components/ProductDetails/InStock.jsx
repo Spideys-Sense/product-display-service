@@ -19,3 +19,7 @@ export default function InStock(props) {
     </StockWrapper>
   );
 }
+
+InStock.propTypes = {
+  stock: PropTypes.number.isRequired,
+};

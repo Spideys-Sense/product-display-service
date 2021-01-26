@@ -18,7 +18,6 @@ const ImageSliderFrame = styled.div`
   width: 100%;
   height: 350px;
   overflow: hidden;
-  border: 1px gray solid;
   border-radius: 5px;
 `;
 
@@ -104,14 +103,22 @@ export default class ImageList extends React.Component {
   }
 
   render() {
-    const { urls, changeBigPicture } = this.props;
+    const { urls, changeBigPicture, activeImageIndex } = this.props;
     const { canScrollUp, canScrollDown, page } = this.state;
     return (
       <ListWrapper>
         <UpButton enabled={canScrollUp} onClick={this.scroll} value="up">▲</UpButton>
         <ImageSliderFrame>
           <ImageSlider page={page}>
-            {urls.map((url, i) => <ImageListEntry url={url} key={`IMG${i + 1}`} changeBigPicture={changeBigPicture(i)} />)}
+            {urls.map((url, i) => (
+              <ImageListEntry
+                url={url}
+                i={i}
+                key={`IMG${i + 1}`}
+                changeBigPicture={changeBigPicture}
+                activeImageIndex={activeImageIndex}
+              />
+            ))}
           </ImageSlider>
         </ImageSliderFrame>
         <DownButton enabled={canScrollDown} onClick={this.scroll} value="down">▼</DownButton>
@@ -123,4 +130,5 @@ export default class ImageList extends React.Component {
 ImageList.propTypes = {
   urls: PropTypes.arrayOf(PropTypes.string).isRequired,
   changeBigPicture: PropTypes.func.isRequired,
+  activeImageIndex: PropTypes.number.isRequired,
 };

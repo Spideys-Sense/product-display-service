@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 
 const Modal = styled.div`
   opacity: ${(props) => ((props.active) ? 1 : 0)};
+  pointer-events: none;
   transition: opacity .3s linear;
-  grid-area: 5 / 5
-  // background-color: rgba(0, 0, 0, .25);
+  grid-area: 1 / 1 / 5 / 3;
+  margin-right: 10%;
+  margin-top: -15px;
   box-shadow: 0 0 2px 2px gray;
   z-index: 1;
   box-sizing: border-box;
@@ -18,28 +20,37 @@ const Modal = styled.div`
   position: relative;
 `;
 
-const Zoom = styled.img`
-  position: absolute;
-  transition: transform .3s ease-out;
-  transform: translate(
-    ${(props) => {
-    let x = 0;
-    let y = 0;
-    x += props.mouseX;
-    y += props.mouseY;
-    // console.log(x,y);
-    return `${-(x / 2)}%, ${-(y / 2)}%`;
-  }});
+const ZoomBg = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: gray;
+  background-image: url(${(props) => props.img});
+  background-repeat: no-repeat;
+  background-position: ${((props) => {
+    const { x, y } = props.hoverData;
+    return `${x}% ${y}%`;
+  })};
+  background-size: 250%;
+  ${(props) => ((props.active)
+    ? 'transition:background-position .3s ease-out 0s;'
+    : 'transition:background-position 0 linear')}
   `;
 
-export default function ZoomModal(props) {
-  const { hoverData } = props;
+function ZoomModal(props) {
+  const { hoverData, zoomModalUrl } = props;
+  // const { picHeight, picWidth, url } = this.state;
   return (
     <Modal active={hoverData.active}>
-      <Zoom src="https://media.istockphoto.com/photos/hungry-dog-picture-id497384624?k=6&m=497384624&s=612x612&w=0&h=tw6UCfuumu7BT1NLkWxn6WonsgFLMipop4klDJRWDOc=" alt="dog eating food" mouseX={hoverData.x} mouseY={hoverData.y} />
+      <ZoomBg
+        active={hoverData.active}
+        img={zoomModalUrl}
+        hoverData={hoverData}
+      />
     </Modal>
   );
 }
+
+export default ZoomModal;
 
 ZoomModal.propTypes = {
   hoverData: PropTypes.shape({
@@ -47,4 +58,5 @@ ZoomModal.propTypes = {
     y: PropTypes.number,
     active: PropTypes.bool,
   }).isRequired,
+  zoomModalUrl: PropTypes.string.isRequired,
 };

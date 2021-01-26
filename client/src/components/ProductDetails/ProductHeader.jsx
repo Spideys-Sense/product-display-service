@@ -18,3 +18,7 @@ export default function ProductDetails(props) {
     </Header>
   );
 }
+
+ProductDetails.propTypes = {
+  name: PropTypes.string.isRequired,
+};

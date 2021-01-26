@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 const BuyBox = styled.div`
   grid-area: 2 / 2 / 2 / 2;
   position: relative;
   height: 210px;
-  max-width: 400px;
+  max-width: fit-content;
   min-width: 200px;
   width: 20vw;
   border: 1px #EEE solid;
@@ -106,12 +106,10 @@ FavoriteButton.displayName = 'FavoriteButton';
 export default class CartWidget extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      quantity: 1,
-    };
 
     // const { submitToCart } = props;
-    const submitToCart = ((x) => console.log(x)); // dummy func for now
+    // eslint-disable-next-line no-console
+    const submitToCart = ((x) => console.log(`Submit ${x} to cart: no cart functionality implemented!`)); // dummy func for now
     this.submitToCart = submitToCart;
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
@@ -133,7 +131,6 @@ export default class CartWidget extends React.Component {
       const selection = (<option value={i} key={i}>{i}</option>);
       selections.push(selection);
     }
-    const { quantity } = this.state;
     return (
       <BuyBox>
         <CartWidgetForm onSubmit={this.handleSubmit}>

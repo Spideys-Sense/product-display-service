@@ -9,7 +9,7 @@ import DepartmentList from './DepartmentList';
 const AppContainer = styled.div`
   margin-left: auto;
   margin-right: auto;
-  min-width: fit-content;
+  // min-width: fit-content;
   width: 1200px;
   height: 450px;
   display: grid;
@@ -23,15 +23,23 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      dataLoaded: false,
       id: 0,
+      activeImageIndex: 0,
       modalHoverData: {
         x: 0,
         y: 0,
-        active: true,
+        active: false,
+      },
+      modalDimensions: {
+        width: 0,
+        height: 0,
       },
     };
     this.updateHoverData = this.updateHoverData.bind(this);
     this.updateCurrentItem = this.updateCurrentItem.bind(this);
+    this.changeBigPicture = this.changeBigPicture.bind(this);
+    this.updateModalDimensions = this.updateModalDimensions.bind(this);
   }
 
   componentDidMount() {
@@ -40,46 +48,77 @@ class App extends React.Component {
     this.updateCurrentItem(id);
   }
 
-  updateHoverData(x, y, active) {
-    let state = this.state;
+  updateHoverData(x, y, active, width, height) {
+    const { state } = this;
     const newHoverData = {
       x,
       y,
       active,
     };
+    if (width && height) {
+      newHoverData.width = width;
+      newHoverData.height = height;
+    } else {
+      newHoverData.width = state.modalHoverData.width;
+      newHoverData.height = state.modalHoverData.height;
+    }
     state.modalHoverData = newHoverData;
     this.setState(state);
   }
 
+  updateModalDimensions(width, height) {
+    this.setState({ modalDimensions: { width, height } });
+  }
+
+  changeBigPicture(activeImageIndex) {
+    this.setState({ activeImageIndex });
+  }
+
   updateCurrentItem(itemId) {
-    let localItem;
+    let newState;
     axios.get(`/api/${itemId}/summary`)
       .then((response) => response.data)
       .then((servedItem) => {
-        localItem = servedItem;
+        newState = servedItem;
         return axios.get(`/api/${itemId}/images`);
       })
       .then((response) => response.data.imageUrls)
       .then((servedImages) => {
-        localItem.images = servedImages;
-        this.setState(localItem);
+        newState.images = servedImages;
+        newState.dataLoaded = true;
+        this.setState(newState);
       });
   }
 
   render() {
     const {
-      id, name, variantName, price, discount, stock, variants, Department, images, modalHoverData,
+      dataLoaded,
+      id,
+      name,
+      variantName,
+      price,
+      discount,
+      stock,
+      variants,
+      Department,
+      images,
+      activeImageIndex,
+      modalHoverData,
+      modalDimensions,
     } = this.state;
 
     const department = Department;
 
     // Returns 'loading' div if no data passed in to avoid a pile of console errors
-    return (name) ? (
+    return (dataLoaded) ? (
       <AppContainer>
         <DepartmentList department={department} />
         <ImageCarousel
           images={images}
+          activeImageIndex={activeImageIndex}
           updateHoverData={this.updateHoverData}
+          updateModalDimensions={this.updateModalDimensions}
+          changeBigPicture={this.changeBigPicture}
         />
         <ProductDetails
           id={id}
@@ -90,27 +129,13 @@ class App extends React.Component {
           stock={stock}
           variants={variants}
           modalHoverData={modalHoverData}
+          modalDimensions={modalDimensions}
           updateCurrentItem={this.updateCurrentItem}
+          zoomModalUrl={images[activeImageIndex]}
         />
       </AppContainer>
     ) : ( // If no data from server, displays null page
-      <AppContainer>
-        <DepartmentList
-          department="no response from API"
-          updateHoverData={() => {}}
-        />
-        <ImageCarousel images={['img']} />
-        <ProductDetails
-          id={0}
-          variantName="nullVariant"
-          name="null"
-          price={0}
-          discount={0}
-          stock={0}
-          variants={[0]}
-          modalHoverData={{ x: 0, y: 0, active: false }}
-        />
-      </AppContainer>
+      <em>Loading...</em>
     );
   }
 }
