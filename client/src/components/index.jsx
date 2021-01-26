@@ -50,7 +50,7 @@ class App extends React.Component {
 
   render() {
     const {
-      id, name, price, discount, stock, variants, Department, images,
+      id, name, price, discount, stock, variants, Department, images, cartAmount,
     } = this.state;
 
     const department = Department;
@@ -58,7 +58,7 @@ class App extends React.Component {
     // Returns 'loading' div if no data passed in to avoid a pile of console errors
     return (name) ? (
       <div>
-        <Header />
+        <Header cartAmount={cartAmount}/>
         <AppContainer>
           <DepartmentList department={department} />
           <ImageCarousel images={images} />
