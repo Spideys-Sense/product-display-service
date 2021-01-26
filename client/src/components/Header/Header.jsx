@@ -47,6 +47,9 @@ const StyledTop = styled.div`
 const StyledImg = styled.img`
   height: 75px;
   margin-left: 130px;
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const StyledForm = styled.form`
@@ -63,8 +66,10 @@ const StyledInput = styled.input`
 `;
 
 const StyledButton = styled.button`
+  top: -12px;
+  right: -5px;
   display: inline;
-  width: 35px;
+  width: 33px;
   background-color: transparent;
   border: none;
   position: relative;
@@ -85,14 +90,16 @@ const Help = styled.span`
   padding: 0 20px;
   :hover {
     background-color: rgba(0,0,0,.2);
+    cursor: pointer;
   }
 `;
 
 const Account = styled.span`
-  border-right: 1px solid white;
   padding: 0 20px;
+  display: inline-block;
   :hover {
     background-color: rgba(0,0,0,.2);
+    cursor: pointer;
   }
   `;
 
@@ -103,9 +110,11 @@ const NameAccount = styled(Account)`
 `;
 
 const Cart = styled.span`
+  border-left: 1px solid white;
   padding: 0 20px;
   :hover {
     background-color: rgba(0,0,0,.2);
+    cursor: pointer;
   }
 `;
 
@@ -128,36 +137,42 @@ const Shop = styled.span`
   font-size: 19px;
     :hover {
     background-color: rgba(0,0,0,.2);
+    cursor: pointer;
   }
 `;
 const Pharm = styled.span`
   color: white;
     :hover {
     background-color: rgba(0,0,0,.2);
+    cursor: pointer;
   }
 `;
 const Brands = styled.span`
   color: white;
     :hover {
     background-color: rgba(0,0,0,.2);
+    cursor: pointer;
   }
 `;
 const Deals = styled.span`
   color: white;
     :hover {
     background-color: rgba(0,0,0,.2);
+    cursor: pointer;
   }
 `;
 const GiftCards = styled.span`
   color: white;
     :hover {
     background-color: rgba(0,0,0,.2);
+    cursor: pointer;
   }
 `;
 const FreeShipping = styled.span`
   color: #f8d81c;
     :hover {
     background-color: rgba(0,0,0,.2);
+    cursor: pointer;
   }
 `;
 
@@ -179,6 +194,7 @@ const Header = () => (
         </Help>
         <Account>
           <NameAccount>Hi, User!</NameAccount>
+          <br />
           your account
         </Account>
         <Cart>
