@@ -31,7 +31,9 @@ const ZoomBg = styled.div`
     return `${x}% ${y}%`;
   })};
   background-size: 250%;
-  transition:background-position .3s linear;
+  ${(props) => ((props.active)
+    ? 'transition:background-position .3s ease-out 0s;'
+    : 'transition:background-position 0 linear')}
   `;
 
 function ZoomModal(props) {
@@ -40,6 +42,7 @@ function ZoomModal(props) {
   return (
     <Modal active={hoverData.active}>
       <ZoomBg
+        active={hoverData.active}
         img={zoomModalUrl}
         hoverData={hoverData}
       />
