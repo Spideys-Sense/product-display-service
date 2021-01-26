@@ -14,27 +14,34 @@ const CarouselContainer = styled.div`
   grid-template-columns: 1fr 5fr;
 `;
 
-export default class ImageCarousel extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+export default function ImageCarousel(props) {
+  const {
+    images, updateHoverData, updateModalDimensions, changeBigPicture, activeImageIndex,
+  } = props;
+  const maxPages = Math.ceil(images.length / 5);
+  const bigImage = images[activeImageIndex];
 
-  render() {
-    const {
-      images, updateHoverData, changeBigPicture, activeImageIndex,
-    } = this.props;
-    const bigImage = images[activeImageIndex];
-
-    return (
-      <CarouselContainer>
-        <ImageList urls={images} changeBigPicture={changeBigPicture} />
-        <BigPicture url={bigImage} updateHoverData={updateHoverData} />
-      </CarouselContainer>
-    );
-  }
+  return (
+    <CarouselContainer>
+      <ImageList
+        urls={images}
+        changeBigPicture={changeBigPicture}
+        maxPages={maxPages}
+        activeImageIndex={activeImageIndex}
+      />
+      <BigPicture
+        url={bigImage}
+        updateHoverData={updateHoverData}
+        updateModalDimensions={updateModalDimensions}
+      />
+    </CarouselContainer>
+  );
 }
 
 ImageCarousel.propTypes = {
   images: PropTypes.arrayOf(PropTypes.string).isRequired,
   updateHoverData: PropTypes.func.isRequired,
+  updateModalDimensions: PropTypes.func.isRequired,
+  changeBigPicture: PropTypes.func.isRequired,
+  activeImageIndex: PropTypes.number.isRequired,
 };
