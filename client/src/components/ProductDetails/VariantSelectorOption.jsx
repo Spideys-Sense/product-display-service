@@ -46,4 +46,11 @@ class VariantSelectorOption extends React.Component {
   }
 }
 
+VariantSelectorOption.propTypes = {
+  id: PropTypes.number.isRequired,
+  mainId: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  updateCurrentItem: PropTypes.func.isRequired,
+};
+
 export default VariantSelectorOption;

@@ -17,7 +17,6 @@ export default class VariantSelector extends React.Component {
       gotData: false,
       variantData: [],
     };
-    console.log(props.variants);
     this.getVariantNames = this.getVariantNames.bind(this);
     // setTimeout(this.getVariantNames, 200);
     this.getVariantNames();
@@ -28,21 +27,19 @@ export default class VariantSelector extends React.Component {
     const variantNameRequests = [];
 
     for (let i = 0; i < variants.length; i += 1) {
-      variantNameRequests.push(new Promise((resolve, reject) => {
+      variantNameRequests.push(new Promise((resolve) => {
         axios.get(`/api/${variants[i]}/summary`)
           .then((response) => response.data.variantName)
           .then((name) => {
             resolve({ id: variants[i], name });
           })
-          .catch((err) => {
+          .catch(() => {
             setTimeout(this.getVariantNames, 300); // Didn't go through? Try again
           });
       }));
     }
-    console.log(variantNameRequests);
     Promise.all(variantNameRequests)
       .then((results) => {
-        console.log('results:', results);
         const { variantData } = this.state;
         const { mainId, variantName } = this.props;
         const mainItemData = { id: mainId, name: variantName };
@@ -80,3 +77,10 @@ export default class VariantSelector extends React.Component {
     );
   }
 }
+
+VariantSelector.propTypes = {
+  variants: PropTypes.arrayOf(PropTypes.number).isRequired,
+  variantName: PropTypes.string.isRequired,
+  mainId: PropTypes.number.isRequired,
+  updateCurrentItem: PropTypes.func.isRequired,
+};

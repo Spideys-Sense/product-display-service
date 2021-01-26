@@ -92,7 +92,7 @@ const SmallStrikeThrough = styled(SmallPriceText)`
 `;
 //
 
-const formatPrice = function (cents) {
+const formatPrice = function formatPrice(cents) {
   return (cents / 100).toFixed(2);
 };
 
@@ -147,3 +147,8 @@ export default function PriceView(props) {
     </PriceBox>
   );
 }
+
+PriceView.propTypes = {
+  price: PropTypes.number.isRequired,
+  discount: PropTypes.number.isRequired,
+};
