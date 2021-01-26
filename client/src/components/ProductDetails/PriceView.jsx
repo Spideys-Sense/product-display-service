@@ -64,7 +64,7 @@ const AutoShipTitle = styled(PriceTitle)`
   }
 `;
 
-const PriceText = styled.p` // Template
+const PriceText = styled.div` // Template
   margin: 0;
   color: #A21508;
   grid-column: 2;
@@ -73,7 +73,7 @@ const PriceText = styled.p` // Template
   margin-block-start: 0;
 `;
 
-const AutoShipInfoText = styled.p`
+const AutoShipInfoText = styled.div`
   margin-top: 1px;
   font-size: 14px;
   color: black;

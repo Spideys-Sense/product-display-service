@@ -90,7 +90,7 @@ const FavoriteArea = styled.div`
   justify-content: center;
 `;
 
-const Heart = styled.p`
+const Heart = styled.em`
   all:unset;
   margin: 3px;
   font-weight: bold;
@@ -137,8 +137,8 @@ export default class CartWidget extends React.Component {
     return (
       <BuyBox>
         <CartWidgetForm onSubmit={this.handleSubmit}>
-          <QuantityDropDown name="Quantity" onChange={this.handleSelect}>
-            <option value="" disabled selected>Select Quantity</option>
+          <QuantityDropDown name="Quantity" defaultValue="Default" onChange={this.handleSelect}>
+            <option value="Default" disabled>Select Quantity</option>
             {Array(12)
               .fill(0)
               .map((e, i) => <option value={i + 1} key={`BUY-QUANT-${i.toString()}`}>{i + 1}</option>)}

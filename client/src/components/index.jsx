@@ -31,23 +31,13 @@ class App extends React.Component {
       },
     };
     this.updateHoverData = this.updateHoverData.bind(this);
+    this.updateCurrentItem = this.updateCurrentItem.bind(this);
   }
 
   componentDidMount() {
     // Get data from server
     const { id } = this.props;
-    let localItem;
-    axios.get(`/api/${id}/summary`)
-      .then((response) => response.data)
-      .then((servedItem) => {
-        localItem = servedItem;
-        return axios.get(`/api/${id}/images`);
-      })
-      .then((response) => response.data.imageUrls)
-      .then((servedImages) => {
-        localItem.images = servedImages;
-        this.setState(localItem);
-      });
+    this.updateCurrentItem(id);
   }
 
   updateHoverData(x, y, active) {
@@ -61,9 +51,24 @@ class App extends React.Component {
     this.setState(state);
   }
 
+  updateCurrentItem(itemId) {
+    let localItem;
+    axios.get(`/api/${itemId}/summary`)
+      .then((response) => response.data)
+      .then((servedItem) => {
+        localItem = servedItem;
+        return axios.get(`/api/${itemId}/images`);
+      })
+      .then((response) => response.data.imageUrls)
+      .then((servedImages) => {
+        localItem.images = servedImages;
+        this.setState(localItem);
+      });
+  }
+
   render() {
     const {
-      id, name, price, discount, stock, variants, Department, images, modalHoverData,
+      id, name, variantName, price, discount, stock, variants, Department, images, modalHoverData,
     } = this.state;
 
     const department = Department;
@@ -78,12 +83,14 @@ class App extends React.Component {
         />
         <ProductDetails
           id={id}
+          variantName={variantName}
           name={name}
           price={price}
           discount={discount}
           stock={stock}
           variants={variants}
           modalHoverData={modalHoverData}
+          updateCurrentItem={this.updateCurrentItem}
         />
       </AppContainer>
     ) : ( // If no data from server, displays null page
@@ -95,6 +102,7 @@ class App extends React.Component {
         <ImageCarousel images={['img']} />
         <ProductDetails
           id={0}
+          variantName="nullVariant"
           name="null"
           price={0}
           discount={0}

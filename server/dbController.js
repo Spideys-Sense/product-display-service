@@ -14,6 +14,7 @@ module.exports.retrieveItem = (ItemId) => models.Item.findByPk(ItemId, {
       where: {
         ItemId,
       },
+      raw: true,
     })
       .then((variantResults) => {
         if (variantResults.length > 0) {
