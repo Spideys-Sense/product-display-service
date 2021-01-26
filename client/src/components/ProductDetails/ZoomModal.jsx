@@ -9,7 +9,6 @@ const Modal = styled.div`
   grid-area: 1 / 1 / 5 / 3;
   margin-right: 10%;
   margin-top: -15px;
-  // background-color: rgba(0, 0, 0, .25);
   box-shadow: 0 0 2px 2px gray;
   z-index: 1;
   box-sizing: border-box;
@@ -21,48 +20,31 @@ const Modal = styled.div`
   position: relative;
 `;
 
-const Zoom = styled.img`
-  position: absolute;
-  transition: transform .3s ease-out;
-  transform: scale(2, 2) translate(
-    ${(props) => {
-    let x = 0;
-    let y = 0;
-    x += props.mouseX;
-    y += props.mouseY;
-    // console.log(x,y);
-    return `${-(x)}px, ${-(y)}px`;
-  }});
+const ZoomBg = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: gray;
+  background-image: url(${(props) => props.img});
+  background-repeat: no-repeat;
+  background-position: ${((props) => {
+    const { x, y } = props.hoverData;
+    return `${x}% ${y}%`;
+  })};
+  background-size: 250%;
+  transition:background-position .3s linear;
   `;
 
-class ZoomModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      url: '',
-      picWidth: 0,
-      picHeight: 0,
-    };
-    this.zoomBox = React.createRef();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    // const { hoverData } = this.props;
-    // if (hoverData.url !== prevState.url) {
-    //   const box = this.zoomBox.current;
-    //   console.log(box.getBoundingClientRect());
-    //   this.setState({ url });
-    // }
-  }
-
-  render() {
-    const { hoverData, zoomModalUrl } = this.props;
-    return (
-      <Modal active={hoverData.active}>
-        <Zoom src={zoomModalUrl} alt="dog eating food" mouseX={hoverData.x} mouseY={hoverData.y} ref={this.zoomBox} />
-      </Modal>
-    );
-  }
+function ZoomModal(props) {
+  const { hoverData, zoomModalUrl } = props;
+  // const { picHeight, picWidth, url } = this.state;
+  return (
+    <Modal active={hoverData.active}>
+      <ZoomBg
+        img={zoomModalUrl}
+        hoverData={hoverData}
+      />
+    </Modal>
+  );
 }
 
 export default ZoomModal;
@@ -73,4 +55,5 @@ ZoomModal.propTypes = {
     y: PropTypes.number,
     active: PropTypes.bool,
   }).isRequired,
+  zoomModalUrl: PropTypes.string.isRequired,
 };
