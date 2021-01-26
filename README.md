@@ -29,6 +29,10 @@ The world's leading online pet supply storefront, brought to you by #SpideyGang!
 
 ## Requirements
 
+
+!!!NOTICE!!!
+If initializing a fresh install of this module, you will need to create the database "product_displays" from a mysql command line instance!
+
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 - Node 6.13.0
