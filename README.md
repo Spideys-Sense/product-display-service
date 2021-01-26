@@ -19,9 +19,9 @@ The world's leading online pet supply storefront, brought to you by #SpideyGang!
 
 > This module allows users to:
 > * See broad item information (Price/discounts, variants, title, department, in-stock) 
-> * Select and view image previews for the item 
+> * Select and view image previews for the item from a list
 > * Choose variants of an item (E.G. container size)
-> * Modal zoom view when hovering on main image
+> * Use a modal zoom view when hovering on main image
 >
 > Potential later features:
 > * Choose item amount, and add that many to the user’s cart
