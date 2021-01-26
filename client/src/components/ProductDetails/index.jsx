@@ -19,11 +19,25 @@ const DetailsContainer = styled.div`
 
 export default function ProductDetails(props) {
   const {
-    id, name, variantName, price, discount, stock, variants, modalHoverData, updateCurrentItem, zoomModalUrl,
+    id,
+    name,
+    variantName,
+    price,
+    discount,
+    stock,
+    variants,
+    modalHoverData,
+    updateCurrentItem,
+    zoomModalUrl,
+    modalDimensions,
   } = props;
   return (
     <DetailsContainer>
-      <ZoomModal hoverData={modalHoverData} zoomModalUrl={zoomModalUrl} />
+      <ZoomModal
+        hoverData={modalHoverData}
+        zoomModalUrl={zoomModalUrl}
+        modalDimensions={modalDimensions}
+      />
       <ProductHeader name={name} />
       <PriceView price={price} discount={discount} />
       <VariantSelector
@@ -37,3 +51,24 @@ export default function ProductDetails(props) {
     </DetailsContainer>
   );
 }
+
+ProductDetails.propTypes = {
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  variantName: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  discount: PropTypes.number.isRequired,
+  stock: PropTypes.number.isRequired,
+  variants: PropTypes.arrayOf(PropTypes.number).isRequired,
+  modalHoverData: PropTypes.shape({
+    x: PropTypes.number,
+    y: PropTypes.number,
+    active: PropTypes.bool,
+  }).isRequired,
+  updateCurrentItem: PropTypes.func.isRequired,
+  zoomModalUrl: PropTypes.string.isRequired,
+  modalDimensions: PropTypes.shape({
+    width: 0,
+    height: 0,
+  }).isRequired,
+};
