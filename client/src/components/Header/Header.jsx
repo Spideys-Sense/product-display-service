@@ -32,9 +32,11 @@ const StyledWrapper = styled.div`
   left: 0;
   position: absolute;
   width: 100%;
-  margin-bottom: 20px;
+  padding-top: 5px;
+  margin-bottom: 25px;
   display: grid;
   grid-template-rows: 60% 40%;
+  padding-bottom: 5px;
 // }
 `;
 
@@ -81,8 +83,9 @@ const StyledSvg = styled.svg`
 `;
 
 const AccountInfo = styled.span`
+padding-top: 7px;
   color: white;
-  padding: 22px;
+  padding-left: 22px;
 `;
 
 const StyledDownArrow = styled.svg`
@@ -98,7 +101,6 @@ const StyledDownArrow = styled.svg`
 const Help = styled.span`
   position: relative;
   display: inline-block;
-
   padding: 10px;
   border-right: 1px solid white;
   :hover {
@@ -107,18 +109,7 @@ const Help = styled.span`
     cursor: pointer;
     display: inline;
   }
-  /* ::after {
-    margin-left: 10px;
-    display: inline;
-    height: 36px;
-    border-right: 1px solid hsla(0,0%,100%,.2);
-    content: "";
-  } */
 `;
-
-// thing thgat u hover on to change display
-
-// drop down content
 
 const HelpDropDownContent = styled.div`
   display: none;
@@ -197,18 +188,18 @@ const HelpDropDownContent = styled.div`
 `;
 
 const Account = styled.span`
+  top: 5px;
   position: relative;
-  padding: 10px;
+  padding: 0 10px 10px 10px;
   display: inline-block;
   :hover {
     transition: background-color 0.17s ease-in-out;
     background-color: rgba(0,0,0,.2);
     cursor: pointer;
   }
-  `;
+`;
 
 const NameAccount = styled(Account)`
-  // display: block;
   padding: 0;
   font-size: 12px;
   color: lightblue;
@@ -223,7 +214,6 @@ const AccountDropDownContent = styled.div`
   background-color: #f9f9f9;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  /* padding: 12px 16px; */
   z-index: 1;
   ${Account}:hover & {
     right: 0;
@@ -257,7 +247,6 @@ const CartDropDownContentZero = styled.div`
   background-color: #f9f9f9;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  /* padding: 12px 16px; */
   z-index: 1;
   ${Cart}:hover & {
     left: -162px;
@@ -289,7 +278,6 @@ const CartDropDownContentMore = styled.div`
   background-color: #f9f9f9;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  /* padding: 12px 16px; */
   z-index: 1;
   ${Cart}:hover & {
     display: block;
@@ -325,6 +313,7 @@ const StyledBottom = styled.div`
 `;
 
 const Shop = styled.span`
+  padding: 9px;
   text-align: center;
   color: white;
   font-size: 19px;
@@ -334,7 +323,24 @@ const Shop = styled.span`
     cursor: pointer;
   }
 `;
+
+const ShopDropDown = styled.div`
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  ${Shop}:hover & {
+    display: block;
+    top: 30px;
+    background-color: white;
+    color: #438ed2;
+  }
+`;
+
 const Pharm = styled.span`
+  padding: 9px;
   color: white;
     :hover {
     transition: background-color 0.17s ease-in-out;
@@ -343,6 +349,7 @@ const Pharm = styled.span`
   }
 `;
 const Brands = styled.span`
+  padding: 9px;
   color: white;
     :hover {
     transition: background-color 0.17s ease-in-out;
@@ -351,6 +358,7 @@ const Brands = styled.span`
   }
 `;
 const Deals = styled.span`
+  padding: 9px;
   color: white;
     :hover {
     transition: background-color 0.17s ease-in-out;
@@ -359,6 +367,7 @@ const Deals = styled.span`
   }
 `;
 const GiftCards = styled.span`
+  padding: 9px;
   color: white;
     :hover {
     transition: background-color 0.17s ease-in-out;
@@ -367,6 +376,7 @@ const GiftCards = styled.span`
   }
 `;
 const FreeShipping = styled.span`
+  padding: 9px;
   color: #f8d81c;
     :hover {
     transition: background-color 0.17s ease-in-out;
@@ -452,7 +462,7 @@ const Header = ({ cartAmount }) => (
           {cartAmount === 0
             ? (
               <CartDropDownContentZero cartAmount={cartAmount}>
-                <div className="emptyTitle">Your Cart is empty</div>
+                <div className="emptyTitle">Your cart is empty</div>
                 <div className="emptyText">
                   Your cart is empty and we can't wait to see what you put inside!
                   <a href="#"> Shop now!</a>
@@ -473,6 +483,8 @@ const Header = ({ cartAmount }) => (
         <StyledDownArrow viewBox="0 0 11 7" xmlns="http://www.w3.org/2000/svg">
           <path d="M5.5 4.98L1.63 1.1a.37.37 0 0 0-.52 0 .38.38 0 0 0 0 .53l4.12 4.12c.08.08.17.11.27.11s.2-.03.27-.1l4.12-4.13a.38.38 0 0 0 0-.53.37.37 0 0 0-.52 0L5.5 4.98z" />
         </StyledDownArrow>
+        <ShopDropDown>
+        </ShopDropDown>
       </Shop>
       <Pharm>
         pharmacy
