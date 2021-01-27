@@ -3,4 +3,4 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components';
 
-ReactDOM.render(<App id={50} />, document.getElementById('app'));
+ReactDOM.render(<App id={50} />, document.getElementById('product-display'));

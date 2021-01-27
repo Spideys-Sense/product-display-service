@@ -7,6 +7,8 @@ const port = 12345; // "TBD" // Coordinate with team!
 
 app.use(express.static(path.join(__dirname, '../public')));
 
+app.use('/bundle/', express.static(path.join(__dirname, '../public/dist'), { index: 'main.js' }));
+
 app.get('/api/:id/summary', (req, res) => {
   const { id } = req.params;
   controller.retrieveItem(id)
