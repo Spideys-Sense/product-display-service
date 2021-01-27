@@ -3,29 +3,7 @@ import styled from 'styled-components';
 
 import img from './images/biteyLogo.png';
 
-const size = {
-  mobileS: '320px',
-  mobileM: '375px',
-  mobileL: '425px',
-  tablet: '768px',
-  laptop: '1024px',
-  laptopL: '1440px',
-  desktop: '2560px',
-};
-
-const device = {
-  mobileS: `(min-width: ${size.mobileS})`,
-  mobileM: `(min-width: ${size.mobileM})`,
-  mobileL: `(min-width: ${size.mobileL})`,
-  tablet: `(min-width: ${size.tablet})`,
-  laptop: `(min-width: ${size.laptop})`,
-  laptopL: `(min-width: ${size.laptopL})`,
-  desktop: `(min-width: ${size.desktop})`,
-  desktopL: `(min-width: ${size.desktop})`,
-};
-
 const StyledWrapper = styled.div`
-// @media (max-width: ${device.laptopL}) {
   background-color: #438ed2;
   height: 120px;
   top: 0;
@@ -37,7 +15,6 @@ const StyledWrapper = styled.div`
   display: grid;
   grid-template-rows: 60% 40%;
   padding-bottom: 5px;
-// }
 `;
 
 const StyledTop = styled.div`
@@ -52,9 +29,6 @@ const StyledImg = styled.img`
   :hover {
     cursor: pointer;
   }
-`;
-
-const StyledForm = styled.form`
 `;
 
 const StyledInput = styled.input`
@@ -95,7 +69,6 @@ const StyledDownArrow = styled.svg`
   fill: none;
   stroke:#f8d81c;
   stroke-width: 2;
-// fill='yellow' fill-rule='evenodd' stroke='%23f8d81c' stroke-width='2'
 `;
 
 const Help = styled.span`
@@ -385,21 +358,18 @@ const FreeShipping = styled.span`
   }
 `;
 
-const VSign = styled.span`
-`;
-
 const Header = ({ cartAmount }) => (
   <StyledWrapper>
     <StyledTop>
       <StyledImg src={img} alt="logo" />
-      <StyledForm>
+      <form>
         <StyledInput type="text" placeholder="Find the best for your pet..." />
         <StyledButton>
           <StyledSvg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M14.76 13.2l6.9 6.9A1.27 1.27 0 1 1 20 21.66l-6.9-6.9a7.03 7.03 0 1 1 1.66-1.66zm-5.73.62a4.69 4.69 0 1 0 0-9.38 4.69 4.69 0 0 0 0 9.38z" />
           </StyledSvg>
         </StyledButton>
-      </StyledForm>
+      </form>
       <AccountInfo>
         <Help>
           24/7 help
@@ -465,7 +435,7 @@ const Header = ({ cartAmount }) => (
                 <div className="emptyTitle">Your cart is empty</div>
                 <div className="emptyText">
                   Your cart is empty and we can't wait to see what you put inside!
-                  <a href="#"> Shop now!</a>
+                  <a href="null"> Shop now!</a>
                 </div>
               </CartDropDownContentZero>
             )
@@ -483,8 +453,7 @@ const Header = ({ cartAmount }) => (
         <StyledDownArrow viewBox="0 0 11 7" xmlns="http://www.w3.org/2000/svg">
           <path d="M5.5 4.98L1.63 1.1a.37.37 0 0 0-.52 0 .38.38 0 0 0 0 .53l4.12 4.12c.08.08.17.11.27.11s.2-.03.27-.1l4.12-4.13a.38.38 0 0 0 0-.53.37.37 0 0 0-.52 0L5.5 4.98z" />
         </StyledDownArrow>
-        <ShopDropDown>
-        </ShopDropDown>
+        <ShopDropDown />
       </Shop>
       <Pharm>
         pharmacy
