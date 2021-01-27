@@ -114,30 +114,32 @@ class App extends React.Component {
     const cartAmount = 0;
     // Returns 'loading' div if no data passed in to avoid a pile of console errors
     return (dataLoaded) ? (
-      <Header cartAmount={cartAmount}/>
-      <AppContainer>
-        <DepartmentList department={department} />
-        <ImageCarousel
-          images={images}
-          activeImageIndex={activeImageIndex}
-          updateHoverData={this.updateHoverData}
-          updateModalDimensions={this.updateModalDimensions}
-          changeBigPicture={this.changeBigPicture}
-        />
-        <ProductDetails
-          id={id}
-          variantName={variantName}
-          name={name}
-          price={price}
-          discount={discount}
-          stock={stock}
-          variants={variants}
-          modalHoverData={modalHoverData}
-          modalDimensions={modalDimensions}
-          updateCurrentItem={this.updateCurrentItem}
-          zoomModalUrl={images[activeImageIndex]}
-        />
-      </AppContainer>
+      <>
+        <Header cartAmount={cartAmount}/>
+        <AppContainer>
+          <DepartmentList department={department} />
+          <ImageCarousel
+            images={images}
+            activeImageIndex={activeImageIndex}
+            updateHoverData={this.updateHoverData}
+            updateModalDimensions={this.updateModalDimensions}
+            changeBigPicture={this.changeBigPicture}
+          />
+          <ProductDetails
+            id={id}
+            variantName={variantName}
+            name={name}
+            price={price}
+            discount={discount}
+            stock={stock}
+            variants={variants}
+            modalHoverData={modalHoverData}
+            modalDimensions={modalDimensions}
+            updateCurrentItem={this.updateCurrentItem}
+            zoomModalUrl={images[activeImageIndex]}
+          />
+        </AppContainer>
+      </>
     ) : ( // If no data from server, displays null page
       <em>Loading...</em>
     );
