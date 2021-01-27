@@ -42,18 +42,24 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 ## Development
 
-API routes for fetching data:
+### API routes for fetching data:
 
-- GET /api/:id/summary
+GET /bundle/
+```
+response.data: Javascript file that will render module onto an html tag with id="product-display"
+```
+
+GET /api/:id/summary
 ```
 response.data: {
 	“id”: Number,
 	“name”: String,
+	"variantName": String,
 	“price”: Number,
 	“discount”: String,
 	“department”: String,
-	“stock”: Number,
-	“variants”: [
+	“stock”: Number, 
+	“variants”: [ 
 		“item_id”: Number,
 		“Item_id”: Number...
 	]
@@ -69,7 +75,7 @@ response.data: {
 ]
 }
 ```
-- POST /api/:id/cart (no response currently implemented)
+- POST /api/:id/cart (no response data currently implemented)
 
 ### Installing Dependencies
 
