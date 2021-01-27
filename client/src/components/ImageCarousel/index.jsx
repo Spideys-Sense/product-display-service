@@ -14,38 +14,34 @@ const CarouselContainer = styled.div`
   grid-template-columns: 1fr 5fr;
 `;
 
+export default function ImageCarousel(props) {
+  const {
+    images, updateHoverData, updateModalDimensions, changeBigPicture, activeImageIndex,
+  } = props;
+  const maxPages = Math.ceil(images.length / 5);
+  const bigImage = images[activeImageIndex];
 
-export default class ImageCarousel extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      activeIndex: 0,
-    };
-    this.changeBigPicture = this.changeBigPicture.bind(this);
-  }
-
-  changeBigPicture(activeIndex) {
-    // Returns a function to set big picture
-    return (function setBigPicture() {
-      this.setState({ activeIndex });
-    }).bind(this);
-  }
-
-  render() {
-    const { images } = this.props;
-    const { activeIndex } = this.state;
-    const bigImage = images[activeIndex];
-
-    return (
-      <CarouselContainer>
-        <ImageList urls={images} changeBigPicture={this.changeBigPicture} />
-        <BigPicture url={bigImage} />
-      </CarouselContainer>
-    );
-  }
+  return (
+    <CarouselContainer>
+      <ImageList
+        urls={images}
+        changeBigPicture={changeBigPicture}
+        maxPages={maxPages}
+        activeImageIndex={activeImageIndex}
+      />
+      <BigPicture
+        url={bigImage}
+        updateHoverData={updateHoverData}
+        updateModalDimensions={updateModalDimensions}
+      />
+    </CarouselContainer>
+  );
 }
 
 ImageCarousel.propTypes = {
   images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  updateHoverData: PropTypes.func.isRequired,
+  updateModalDimensions: PropTypes.func.isRequired,
+  changeBigPicture: PropTypes.func.isRequired,
+  activeImageIndex: PropTypes.number.isRequired,
 };

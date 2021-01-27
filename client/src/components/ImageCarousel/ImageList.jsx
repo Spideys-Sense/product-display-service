@@ -18,7 +18,6 @@ const ImageSliderFrame = styled.div`
   width: 100%;
   height: 350px;
   overflow: hidden;
-  border: 1px gray solid;
   border-radius: 5px;
 `;
 
@@ -32,20 +31,38 @@ const ImageSlider = styled.div`
 `;
 
 const ScrollButton = styled.button`
+  all: unset;
   font-size: 20px;
-  height: 30px;
+  height: 24px;
   width: fit-content;
   border: 0;
-  padding: 2px 4px;
   margin: 0 auto;
-  color: ${(props) => ((props.enabled) ? '#115AB0' : '#D5D5D5')}
+  }};
+
 `;
 
 const UpButton = styled(ScrollButton)`
-
+${(props) => {
+    if (props.enabled) {
+      return `color: #115AB0;
+              &:hover {
+                transform: scale(1.2, 1.2) translateY(-2px);
+              }`;
+    }
+    return 'color: #D5D5D5;';
+  }}
 `;
-const DownButton = styled(ScrollButton)`
 
+const DownButton = styled(ScrollButton)`
+${(props) => {
+    if (props.enabled) {
+      return `color: #115AB0;
+              &:hover {
+                transform: scale(1.2, 1.2) translateY(2px);
+              }`;
+    }
+    return 'color: #D5D5D5;';
+  }}
 `;
 
 export default class ImageList extends React.Component {
@@ -86,14 +103,22 @@ export default class ImageList extends React.Component {
   }
 
   render() {
-    const { urls, changeBigPicture } = this.props;
+    const { urls, changeBigPicture, activeImageIndex } = this.props;
     const { canScrollUp, canScrollDown, page } = this.state;
     return (
       <ListWrapper>
         <UpButton enabled={canScrollUp} onClick={this.scroll} value="up">▲</UpButton>
         <ImageSliderFrame>
           <ImageSlider page={page}>
-            {urls.map((url, i) => <ImageListEntry url={url} key={`IMG${i + 1}`} changeBigPicture={changeBigPicture(i)} />)}
+            {urls.map((url, i) => (
+              <ImageListEntry
+                url={url}
+                i={i}
+                key={`IMG${i + 1}`}
+                changeBigPicture={changeBigPicture}
+                activeImageIndex={activeImageIndex}
+              />
+            ))}
           </ImageSlider>
         </ImageSliderFrame>
         <DownButton enabled={canScrollDown} onClick={this.scroll} value="down">▼</DownButton>
@@ -105,4 +130,5 @@ export default class ImageList extends React.Component {
 ImageList.propTypes = {
   urls: PropTypes.arrayOf(PropTypes.string).isRequired,
   changeBigPicture: PropTypes.func.isRequired,
+  activeImageIndex: PropTypes.number.isRequired,
 };
