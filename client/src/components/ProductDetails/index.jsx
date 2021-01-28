@@ -30,6 +30,7 @@ export default function ProductDetails(props) {
     updateCurrentItem,
     zoomModalUrl,
     modalDimensions,
+    submitToCart
   } = props;
   return (
     <DetailsContainer>
@@ -47,7 +48,7 @@ export default function ProductDetails(props) {
         updateCurrentItem={updateCurrentItem}
       />
       <InStock stock={stock} />
-      <CartWidget id={id} />
+      <CartWidget id={id} submitToCart={submitToCart} />
     </DetailsContainer>
   );
 }

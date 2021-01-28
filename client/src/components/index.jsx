@@ -38,17 +38,24 @@ class App extends React.Component {
         width: 0,
         height: 0,
       },
+      cartAmount: 0,
     };
     this.updateHoverData = this.updateHoverData.bind(this);
     this.updateCurrentItem = this.updateCurrentItem.bind(this);
     this.changeBigPicture = this.changeBigPicture.bind(this);
     this.updateModalDimensions = this.updateModalDimensions.bind(this);
+    this.submitToCart = this.submitToCart.bind(this);
   }
 
   componentDidMount() {
     // Get data from server
     const { id } = this.props;
     this.updateCurrentItem(id);
+  }
+
+  submitToCart(quantity) {
+    axios.post(`/api/1/cart/?amount=${quantity}`)
+      .then(this.setState({ cartAmount: quantity }));
   }
 
   updateHoverData(x, y, active, width, height) {
@@ -108,14 +115,20 @@ class App extends React.Component {
       activeImageIndex,
       modalHoverData,
       modalDimensions,
+      cartAmount,
     } = this.state;
 
     const department = Department;
-    const cartAmount = 0;
     // Returns 'loading' div if no data passed in to avoid a pile of console errors
     return (dataLoaded) ? (
       <>
-        <Header cartAmount={cartAmount}/>
+        <Header
+          images={images}
+          cartAmount={cartAmount}
+          variantName={variantName}
+          name={name}
+          finalPrice={price - discount}
+        />
         <AppContainer>
           <DepartmentList department={department} />
           <ImageCarousel
@@ -137,6 +150,7 @@ class App extends React.Component {
             modalDimensions={modalDimensions}
             updateCurrentItem={this.updateCurrentItem}
             zoomModalUrl={images[activeImageIndex]}
+            submitToCart={this.submitToCart}
           />
         </AppContainer>
       </>

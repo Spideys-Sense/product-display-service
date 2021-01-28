@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import img from './images/biteyLogo.png';
+import img from './biteyLogo.png';
 
 const StyledWrapper = styled.div`
   background-color: #438ed2;
@@ -358,7 +358,10 @@ const FreeShipping = styled.span`
   }
 `;
 
-const Header = ({ cartAmount }) => (
+const ProceedToCheckout = styled.button`
+`;
+
+const Header = ({ cartAmount, name, variantName, finalPrice, images }) => (
   <StyledWrapper>
     <StyledTop>
       <StyledImg src={img} alt="logo" />
@@ -441,7 +444,20 @@ const Header = ({ cartAmount }) => (
             )
             : (
               <CartDropDownContentMore>
-                More than 0 items
+                <div className="price">{finalPrice}</div>
+                <span className="editCart">Edit Cart</span>
+                <ProceedToCheckout>Proceed to Checkout</ProceedToCheckout>
+                <div className="itemDetails">
+                  {/* IMAGE: TO DO: */}
+                  <span>image</span>
+                  <span className="productName">
+                    {name}
+                    ,
+                    {variantName}
+                  </span>
+                  <span className="priceBelow">{finalPrice}</span>
+                  <span className="qty">Qty: {cartAmount}</span>
+                </div>
               </CartDropDownContentMore>
             )}
         </Cart>
