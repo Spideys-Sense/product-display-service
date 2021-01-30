@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import PropTypes from 'prop-types';
 import img from './biteyLogo.png';
 
 const StyledWrapper = styled.div`
@@ -249,15 +249,82 @@ const CartDropDownContentMore = styled.div`
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 160px;
+  min-width: 180px;
+  min-height: 120px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+  font-family: Roboto, serif;
+  padding: 20px;
   ${Cart}:hover & {
     display: block;
     color: black;
   }
+  .price {
+    font-size: 15px;
+    font-weight: bold;
+    padding-bottom: 10px;
+  }
+  .price span {
+    color: red;
+  }
+  .editCart {
+    font-size: 15px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #438ed2;
+    text-decoration: none;
+    :hover {
+      text-decoration: underline;
+    }
+  }
+  .itemDetails {
+    display: grid;
+    grid-template-columns: 30% 70%;
+  }
+  .button {
+    background-color: #ef6c00;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    width: 100%;
+    height: 45px;
+    :hover {
+      background-color: #c15000;
+      cursor: pointer;
+    }
+  }
+  .productName {
+    grid-column-start: 2;
+    margin-top: 35px;
+    font-size: 13px;
+    left: 50px;
+    font-weight: 300px;
+  }
+  .priceBelow {
+    grid-column-start: 2;
+  }
+  .priceBelow p {
+    display: inline;
+    font-size: 14px;
+    color: red;
+    font-weight: bold;
+  }
+  .qty {
+    grid-column-start: 2;
+    font-size: 14px;
+  }
+  img {
+    grid-column-start: 1;
+    padding-top: 30px;
+    padding-right: 10px;
+    height: 50px;
+    max-width: 80px;
+  }
 `;
-
 const StyledCartSvg = styled.svg`
   fill: white;
   padding: 0 15px;
@@ -357,11 +424,9 @@ const FreeShipping = styled.span`
     cursor: pointer;
   }
 `;
-
-const ProceedToCheckout = styled.button`
-`;
-
-const Header = ({ cartAmount, name, variantName, finalPrice, images }) => (
+const Header = ({
+  cartAmount, name, variantName, finalPrice, images,
+}) => (
   <StyledWrapper>
     <StyledTop>
       <StyledImg src={img} alt="logo" />
@@ -437,26 +502,45 @@ const Header = ({ cartAmount, name, variantName, finalPrice, images }) => (
               <CartDropDownContentZero cartAmount={cartAmount}>
                 <div className="emptyTitle">Your cart is empty</div>
                 <div className="emptyText">
-                  Your cart is empty and we can't wait to see what you put inside!
+                  Your cart is empty and we can&apos;t wait to see what you put inside!
                   <a href="null"> Shop now!</a>
                 </div>
               </CartDropDownContentZero>
             )
             : (
               <CartDropDownContentMore>
-                <div className="price">{finalPrice}</div>
-                <span className="editCart">Edit Cart</span>
-                <ProceedToCheckout>Proceed to Checkout</ProceedToCheckout>
+                <div className="price">
+                  Cart Subtotal:
+                  {' '}
+                  <span>
+                    $
+                    {finalPrice / 100}
+                  </span>
+                </div>
+                <a href="null" className="editCart">Edit Cart</a>
+                <button type="button" className="button">Proceed to Checkout</button>
                 <div className="itemDetails">
-                  {/* IMAGE: TO DO: */}
-                  <span>image</span>
+                  <img src={images[0]} alt="animal food" />
                   <span className="productName">
                     {name}
                     ,
+                    {' '}
                     {variantName}
                   </span>
-                  <span className="priceBelow">{finalPrice}</span>
-                  <span className="qty">Qty: {cartAmount}</span>
+                  <span className="priceBelow">
+                    <p>
+                      $
+                      {finalPrice / 100}
+                    </p>
+                    {' '}
+                    <span className="qty">
+                      (Qty:
+                      {' '}
+                      {' '}
+                      {cartAmount}
+                      )
+                    </span>
+                  </span>
                 </div>
               </CartDropDownContentMore>
             )}
@@ -481,7 +565,7 @@ const Header = ({ cartAmount, name, variantName, finalPrice, images }) => (
         brands
       </Brands>
       <Deals>
-        today's deals
+        today&apos;s deals
       </Deals>
       <GiftCards>
         gift cards
@@ -491,7 +575,14 @@ const Header = ({ cartAmount, name, variantName, finalPrice, images }) => (
       </FreeShipping>
     </StyledBottom>
   </StyledWrapper>
-
 );
 
 export default Header;
+
+Header.propTypes = {
+  cartAmount: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  variantName: PropTypes.string.isRequired,
+  finalPrice: PropTypes.number.isRequired,
+  images: PropTypes.arrayOf.isRequired,
+};
