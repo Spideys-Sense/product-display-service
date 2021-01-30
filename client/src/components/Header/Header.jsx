@@ -75,7 +75,7 @@ const Help = styled.span`
   position: relative;
   display: inline-block;
   padding: 10px;
-  border-right: 1px solid white;
+  border-right: 1px solid #74a2ce;
   :hover {
     transition: background-color 0.17s ease-in-out;
     background-color: rgba(0,0,0,.2);
@@ -204,7 +204,7 @@ const AccountDropDownContent = styled.div`
 
 const Cart = styled.span`
   position: relative;
-  border-left: 1px solid white;
+  border-left: 1px solid #74a2ce;
   padding: 15px 15px 15px 0;
   margin-left: 15px;
   :hover {
@@ -250,11 +250,14 @@ const CartDropDownContentMore = styled.div`
   position: absolute;
   background-color: #f9f9f9;
   min-width: 180px;
-  min-height: 120px;
+  /* min-height: 120px; */
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
   font-family: Roboto, serif;
   padding: 20px;
+  right: 0;
+  width: 300px;
+  height: 170px;
   ${Cart}:hover & {
     display: block;
     color: black;
