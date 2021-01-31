@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 // import PropTypes from 'prop-types';
 
 const BuyBox = styled.div`
@@ -106,11 +107,10 @@ FavoriteButton.displayName = 'FavoriteButton';
 export default class CartWidget extends React.Component {
   constructor(props) {
     super(props);
-
     // const { submitToCart } = props;
     // eslint-disable-next-line no-console
-    const submitToCart = ((x) => console.log(`Submit ${x} to cart: no cart functionality implemented!`)); // dummy func for now
-    this.submitToCart = submitToCart;
+    // const submitToCart = ((x) => console.log(`Submit ${x} to cart: no cart functionality implemented!`)); // dummy func for now
+    // this.submitToCart = this.submitToCart.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
   }
@@ -122,8 +122,12 @@ export default class CartWidget extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const { quantity } = this.state;
-    this.submitToCart(quantity);
+    this.props.submitToCart(quantity);
   }
+
+  // submitToCart(quantity) {
+  //   axios.post(`/api/1/cart/?amount=${quantity}`)
+  // }
 
   render() {
     const selections = [];

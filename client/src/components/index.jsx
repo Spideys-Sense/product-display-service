@@ -5,8 +5,11 @@ import axios from 'axios';
 import ImageCarousel from './ImageCarousel';
 import ProductDetails from './ProductDetails';
 import DepartmentList from './DepartmentList';
+import Header from './Header/Header';
 
 const AppContainer = styled.div`
+  position: absolute;
+  margin-top: 120px;
   margin-left: auto;
   margin-right: auto;
   // min-width: fit-content;
@@ -35,17 +38,24 @@ class App extends React.Component {
         width: 0,
         height: 0,
       },
+      cartAmount: 0,
     };
     this.updateHoverData = this.updateHoverData.bind(this);
     this.updateCurrentItem = this.updateCurrentItem.bind(this);
     this.changeBigPicture = this.changeBigPicture.bind(this);
     this.updateModalDimensions = this.updateModalDimensions.bind(this);
+    this.submitToCart = this.submitToCart.bind(this);
   }
 
   componentDidMount() {
     // Get data from server
     const { id } = this.props;
     this.updateCurrentItem(id);
+  }
+
+  submitToCart(quantity) {
+    axios.post(`/api/1/cart/?amount=${quantity}`)
+      .then(this.setState({ cartAmount: quantity }));
   }
 
   updateHoverData(x, y, active, width, height) {
@@ -105,35 +115,45 @@ class App extends React.Component {
       activeImageIndex,
       modalHoverData,
       modalDimensions,
+      cartAmount,
     } = this.state;
 
     const department = Department;
-
     // Returns 'loading' div if no data passed in to avoid a pile of console errors
     return (dataLoaded) ? (
-      <AppContainer>
-        <DepartmentList department={department} />
-        <ImageCarousel
+      <>
+        <Header
           images={images}
-          activeImageIndex={activeImageIndex}
-          updateHoverData={this.updateHoverData}
-          updateModalDimensions={this.updateModalDimensions}
-          changeBigPicture={this.changeBigPicture}
-        />
-        <ProductDetails
-          id={id}
+          cartAmount={cartAmount}
           variantName={variantName}
           name={name}
-          price={price}
-          discount={discount}
-          stock={stock}
-          variants={variants}
-          modalHoverData={modalHoverData}
-          modalDimensions={modalDimensions}
-          updateCurrentItem={this.updateCurrentItem}
-          zoomModalUrl={images[activeImageIndex]}
+          finalPrice={price - discount}
         />
-      </AppContainer>
+        <AppContainer>
+          <DepartmentList department={department} />
+          <ImageCarousel
+            images={images}
+            activeImageIndex={activeImageIndex}
+            updateHoverData={this.updateHoverData}
+            updateModalDimensions={this.updateModalDimensions}
+            changeBigPicture={this.changeBigPicture}
+          />
+          <ProductDetails
+            id={id}
+            variantName={variantName}
+            name={name}
+            price={price}
+            discount={discount}
+            stock={stock}
+            variants={variants}
+            modalHoverData={modalHoverData}
+            modalDimensions={modalDimensions}
+            updateCurrentItem={this.updateCurrentItem}
+            zoomModalUrl={images[activeImageIndex]}
+            submitToCart={this.submitToCart}
+          />
+        </AppContainer>
+      </>
     ) : ( // If no data from server, displays null page
       <em>Loading...</em>
     );
