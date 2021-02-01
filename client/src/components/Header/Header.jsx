@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import img from './biteyLogo.png';
+
+const img = 'https://bitey-header-logo.s3.us-east-2.amazonaws.com/biteyLogo.png';
 
 const StyledWrapper = styled.div`
   background-color: #438ed2;
