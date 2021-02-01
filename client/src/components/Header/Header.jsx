@@ -432,7 +432,7 @@ const Header = ({
 }) => (
   <StyledWrapper>
     <StyledTop>
-      <StyledImg src={img} alt="logo" />
+      <StyledImg src={"https://bitey-header-logo.s3.us-east-2.amazonaws.com/biteyLogo.png"} alt="logo" />
       <form>
         <StyledInput type="text" placeholder="Find the best for your pet..." />
         <StyledButton>
