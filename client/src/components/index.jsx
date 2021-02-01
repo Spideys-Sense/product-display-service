@@ -7,6 +7,7 @@ import ProductDetails from './ProductDetails';
 import DepartmentList from './DepartmentList';
 
 const AppContainer = styled.div`
+  font-family: roboto;
   margin-left: auto;
   margin-right: auto;
   // min-width: fit-content;
