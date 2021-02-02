@@ -48,13 +48,13 @@ const seed = () => {
       const imagePromises = [];
       for (let i = 0; i < images.s3.length; i++) {
         imagePromises.push(models.Image.create({
-          ItemId: 0,
+          ItemId: 1,
           url: images.s3[i],
           createdAt: new Date(),
           updatedAt: new Date(),
         }));
         imagePromises.push(models.Image.create({
-          ItemId: 1,
+          ItemId: 2,
           url: images.s3[i],
           createdAt: new Date(),
           updatedAt: new Date(),
