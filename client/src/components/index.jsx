@@ -81,10 +81,6 @@ class App extends React.Component {
     this.setState(state);
   }
 
-  updatePageReset(cb) {
-    this.setState({ resetPage: cb });
-  }
-
   updateModalDimensions(width, height) {
     this.setState({ modalDimensions: { width, height } });
   }
@@ -103,14 +99,12 @@ class App extends React.Component {
       })
       .then((response) => response.data.imageUrls)
       .then((servedImages) => {
-        const { resetPage } = this.state;
         newState.images = servedImages;
         newState.maxPages = Math.max((Math.ceil(servedImages.length / 5) - 1), 0);
         newState.canScrollDown = (newState.maxPages > 0);
         newState.canScrollUp = false;
         newState.page = 0;
         newState.dataLoaded = true;
-        resetPage();
         this.setState(newState);
       });
   }
@@ -159,7 +153,7 @@ class App extends React.Component {
       maxPages,
       page,
       canScrollUp,
-      canScrollDown
+      canScrollDown,
     } = this.state;
 
     const department = Department;
