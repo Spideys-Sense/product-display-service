@@ -1,8 +1,6 @@
 # Bitey
 
-Much of the code in this repo is currently built for connecting to services/databases on a docker container inside a deployed EC2 instance.
-Additionally, our initial app plan document may not 100% match the shape of data currently used on the client, and should be verified.
-If you need help, feel free to reach out to me on slack! 
+This is the service for the product display service at the top of the Bitey webpage (including header).
 
 ## Related Projects
 
@@ -33,16 +31,19 @@ If you need help, feel free to reach out to me on slack!
 
 
 !!!NOTICE!!!
-If initializing a fresh install of this module, you will need to create the database "product_displays" from a mysql command line instance!
+If initializing a fresh install of this module, you will need to create the database "product_displays" from a mysql command line instance! It does not create one on its own!
 
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 - Node 6.13.0
 - NPM
 - MySql 5.7.32
-- etc
 
 ## Development
+
+Much of the code in this repo is currently built for connecting to services/databases on a docker container inside a deployed EC2 instance.
+Additionally, our initial app plan document may not 100% match the shape of data currently used on the client, and should be verified.
+If you need help, feel free to reach out to me on slack! 
 
 ### API routes for fetching data:
 
