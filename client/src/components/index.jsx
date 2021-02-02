@@ -102,6 +102,7 @@ class App extends React.Component {
         newState.images = servedImages;
         newState.maxPages = Math.max((Math.ceil(servedImages.length / 5) - 1), 0);
         newState.canScrollDown = (newState.maxPages > 0);
+        newState.activeImageIndex = 0;
         newState.canScrollUp = false;
         newState.page = 0;
         newState.dataLoaded = true;
