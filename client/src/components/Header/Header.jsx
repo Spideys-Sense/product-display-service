@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 const img = 'https://bitey-header-logo.s3.us-east-2.amazonaws.com/biteyLogo.png';
 
 const StyledWrapper = styled.div`
+  font-family: Roboto;
   background-color: #438ed2;
   height: 120px;
   top: 0;
   left: 0;
-  position: absolute;
   width: 100%;
   padding-top: 5px;
   margin-bottom: 25px;

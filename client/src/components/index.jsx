@@ -8,8 +8,8 @@ import DepartmentList from './DepartmentList';
 import Header from './Header/Header';
 
 const AppContainer = styled.div`
-  position: absolute;
-  margin-top: 120px;
+  font-family: Roboto;
+  margin-bottom: 40px;
   margin-left: auto;
   margin-right: auto;
   // min-width: fit-content;
