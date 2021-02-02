@@ -40,7 +40,7 @@ class App extends React.Component {
       },
       cartAmount: 0,
       maxPages: 0,
-      resetPage: null,
+      resetPage: (() => null),
     };
     this.updateHoverData = this.updateHoverData.bind(this);
     this.updateCurrentItem = this.updateCurrentItem.bind(this);
