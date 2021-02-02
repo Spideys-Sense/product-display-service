@@ -68,9 +68,10 @@ ${(props) => {
 export default class ImageList extends React.Component {
   constructor(props) {
     super(props);
+    const { maxPages } = props;
     this.state = {
       canScrollUp: false,
-      canScrollDown: (this.maxPages > 0),
+      canScrollDown: (maxPages > 0),
       page: 0,
     };
 

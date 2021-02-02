@@ -96,7 +96,7 @@ class App extends React.Component {
       .then((response) => response.data.imageUrls)
       .then((servedImages) => {
         newState.images = servedImages;
-        newState.maxPages = Math.ceil(servedImages.length / 5);
+        newState.maxPages = (Math.ceil(servedImages.length / 5) - 1); // to zero-index
         newState.dataLoaded = true;
         this.setState(newState);
       });
