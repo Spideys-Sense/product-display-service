@@ -68,12 +68,10 @@ ${(props) => {
 export default class ImageList extends React.Component {
   constructor(props) {
     super(props);
-    const maxPages = Math.ceil(props.urls.length / 5);
     this.state = {
       canScrollUp: false,
       canScrollDown: (this.maxPages > 0),
       page: 0,
-      maxPages,
     };
 
     this.scroll = this.scroll.bind(this);
@@ -81,7 +79,7 @@ export default class ImageList extends React.Component {
 
   scroll(event) {
     let { page, canScrollUp, canScrollDown } = this.state;
-    const { maxPages } = this.state;
+    const { maxPages } = this.props;
     const direction = event.target.value;
     if (direction === 'up') {
       if (page > 0) {

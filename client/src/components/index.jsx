@@ -39,6 +39,7 @@ class App extends React.Component {
         height: 0,
       },
       cartAmount: 0,
+      maxPages: 0,
     };
     this.updateHoverData = this.updateHoverData.bind(this);
     this.updateCurrentItem = this.updateCurrentItem.bind(this);
@@ -95,6 +96,7 @@ class App extends React.Component {
       .then((response) => response.data.imageUrls)
       .then((servedImages) => {
         newState.images = servedImages;
+        newState.maxPages = Math.ceil(servedImages.length / 5);
         newState.dataLoaded = true;
         this.setState(newState);
       });
@@ -116,6 +118,7 @@ class App extends React.Component {
       modalHoverData,
       modalDimensions,
       cartAmount,
+      maxPages,
     } = this.state;
 
     const department = Department;
@@ -137,6 +140,7 @@ class App extends React.Component {
             updateHoverData={this.updateHoverData}
             updateModalDimensions={this.updateModalDimensions}
             changeBigPicture={this.changeBigPicture}
+            maxPages={maxPages}
           />
           <ProductDetails
             id={id}

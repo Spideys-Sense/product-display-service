@@ -16,9 +16,9 @@ const CarouselContainer = styled.div`
 
 export default function ImageCarousel(props) {
   const {
-    images, updateHoverData, updateModalDimensions, changeBigPicture, activeImageIndex,
+    images, updateHoverData, updateModalDimensions, changeBigPicture, activeImageIndex, maxPages
   } = props;
-  const maxPages = Math.ceil(images.length / 5);
+  // const maxPages = Math.ceil(images.length / 5);
   const bigImage = images[activeImageIndex];
 
   return (
