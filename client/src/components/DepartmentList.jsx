@@ -9,10 +9,7 @@ const ListWrapper = styled.h5`
 `;
 
 const ListItem = styled.span`
-<<<<<<< Updated upstream
   font-weight: normal;
-=======
->>>>>>> Stashed changes
   color: #666;
 `;
 

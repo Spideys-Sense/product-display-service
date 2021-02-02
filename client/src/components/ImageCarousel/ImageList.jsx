@@ -78,6 +78,13 @@ export default class ImageList extends React.Component {
     this.scroll = this.scroll.bind(this);
   }
 
+  componentDidUpdate() {
+    const { page } = this.state;
+    if (page !== 0) {
+      this.setState({ page: 0 });
+    }
+  }
+
   scroll(event) {
     let { page, canScrollUp, canScrollDown } = this.state;
     const { maxPages } = this.props;
