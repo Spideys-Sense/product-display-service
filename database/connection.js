@@ -2,8 +2,8 @@ const { Sequelize } = require('sequelize');
 
 // This file is responsible for initiating the Sequelize connection
 
-const sequelize = new Sequelize('product_displays', 'student', 'student', {
-  host: 'localhost',
+const sequelize = new Sequelize('product_displays', 'root', 'pineapple', {
+  host: '3.14.193.52',
   dialect: 'mysql',
   logging: false,
 });

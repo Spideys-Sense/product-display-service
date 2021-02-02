@@ -8,8 +8,8 @@ import DepartmentList from './DepartmentList';
 import Header from './Header/Header';
 
 const AppContainer = styled.div`
-  position: absolute;
-  margin-top: 120px;
+  font-family: Roboto;
+  margin-bottom: 40px;
   margin-left: auto;
   margin-right: auto;
   // min-width: fit-content;
@@ -39,12 +39,17 @@ class App extends React.Component {
         height: 0,
       },
       cartAmount: 0,
+      maxPages: 0,
+      canScrollUp: false,
+      canScrollDown: false,
+      page: 0,
     };
     this.updateHoverData = this.updateHoverData.bind(this);
     this.updateCurrentItem = this.updateCurrentItem.bind(this);
     this.changeBigPicture = this.changeBigPicture.bind(this);
     this.updateModalDimensions = this.updateModalDimensions.bind(this);
     this.submitToCart = this.submitToCart.bind(this);
+    this.scroll = this.scroll.bind(this);
   }
 
   componentDidMount() {
@@ -95,9 +100,39 @@ class App extends React.Component {
       .then((response) => response.data.imageUrls)
       .then((servedImages) => {
         newState.images = servedImages;
+        newState.maxPages = Math.max((Math.ceil(servedImages.length / 5) - 1), 0);
+        newState.canScrollDown = (newState.maxPages > 0);
+        newState.activeImageIndex = 0;
+        newState.canScrollUp = false;
+        newState.page = 0;
         newState.dataLoaded = true;
         this.setState(newState);
       });
+  }
+
+  scroll(event) {
+    let { page, canScrollUp, canScrollDown } = this.state;
+    const { maxPages } = this.state;
+    const direction = event.target.value;
+    if (direction === 'up') {
+      if (page > 0) {
+        page -= 1;
+        canScrollDown = true;
+        if (page === 0) {
+          canScrollUp = false;
+        }
+      }
+      this.setState({ canScrollUp, page });
+    } else if (direction === 'down') {
+      if (page < maxPages) {
+        page += 1;
+        canScrollUp = true;
+        if (page === maxPages) {
+          canScrollDown = false;
+        }
+      }
+    }
+    this.setState({ page, canScrollUp, canScrollDown });
   }
 
   render() {
@@ -116,6 +151,10 @@ class App extends React.Component {
       modalHoverData,
       modalDimensions,
       cartAmount,
+      maxPages,
+      page,
+      canScrollUp,
+      canScrollDown,
     } = this.state;
 
     const department = Department;
@@ -137,6 +176,11 @@ class App extends React.Component {
             updateHoverData={this.updateHoverData}
             updateModalDimensions={this.updateModalDimensions}
             changeBigPicture={this.changeBigPicture}
+            maxPages={maxPages}
+            page={page}
+            canScrollUp={canScrollUp}
+            canScrollDown={canScrollDown}
+            scroll={this.scroll}
           />
           <ProductDetails
             id={id}

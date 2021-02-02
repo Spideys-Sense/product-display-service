@@ -8,15 +8,40 @@ const ListWrapper = styled.h5`
   bottom: 1px;
 `;
 
+const ListItem = styled.span`
+  font-weight: normal;
+  color: #666;
+`;
+
+const WordListItem = styled(ListItem)`
+  border-bottom: 1px dashed #bbb;
+`;
+
 export default function DepartmentList(props) {
   const { department } = props;
+  const splitWords = (department) => {
+    let words = department.split(' ');
+    words = words.map((word) => {
+      if (word === '>') {
+        return (
+          <ListItem>{' > '}</ListItem>
+        );
+      }
+      return (
+        <WordListItem>{word}</WordListItem>
+      );
+    });
+    return words;
+  };
+  const list = splitWords(department);
   return (
     <ListWrapper>
-      {department}
+      {list}
     </ListWrapper>
   );
 }
 
 DepartmentList.propTypes = {
-  department: PropTypes.string.isRequired,
+	  department: PropTypes.string.isRequired,
 };
+

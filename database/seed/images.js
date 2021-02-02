@@ -42,6 +42,17 @@ images.curated = [
   'https://media.istockphoto.com/photos/dog-food-picture-id970934080?k=6&m=970934080&s=612x612&w=0&h=R1kcQUoC6HJvmSsR5fbBWqainFuKWegZ9QCUJ6Gv2EU=',
 ];
 
+images.s3 = [
+  'https://s3.us-east-2.amazonaws.com/spideyfec.product-display-service/chewy_images/48991_PT6._AC_SL1500_V1605840107_.jpg',
+  'https://s3.us-east-2.amazonaws.com/spideyfec.product-display-service/chewy_images/48991_PT1._AC_SL1500_V1609375937_.jpg',
+  'https://s3.us-east-2.amazonaws.com/spideyfec.product-display-service/chewy_images/48991_PT2._AC_SL1500_V1609381338_.jpg',
+  'https://s3.us-east-2.amazonaws.com/spideyfec.product-display-service/chewy_images/48991_PT3._AC_SL1500_V1605841913_.jpg',
+  'https://s3.us-east-2.amazonaws.com/spideyfec.product-display-service/chewy_images/48991_PT4._AC_SL1500_V1605831409_.jpg',
+  'https://s3.us-east-2.amazonaws.com/spideyfec.product-display-service/chewy_images/48991_PT5._AC_SL1500_V1605834413_.jpg',
+  'https://s3.us-east-2.amazonaws.com/spideyfec.product-display-service/chewy_images/48991_PT7._AC_SL1500_V1605837408_.jpg',
+  'https://s3.us-east-2.amazonaws.com/spideyfec.product-display-service/chewy_images/48991_PT8._AC_SL1500_V1605829911_.jpg',
+];
+
 images.all = [].concat(images.dogs, images.cats, images.food, images.zebras, images.packaging, images.curated);
 
 module.exports = images;
