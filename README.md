@@ -1,6 +1,8 @@
 # Bitey
 
-The world's leading online pet supply storefront, brought to you by #SpideyGang!
+Much of the code in this repo is currently built for connecting to services/databases on a docker container inside a deployed EC2 instance.
+Additionally, our initial app plan document may not 100% match the shape of data currently used on the client, and should be verified.
+If you need help, feel free to reach out to me on slack! 
 
 ## Related Projects
 
