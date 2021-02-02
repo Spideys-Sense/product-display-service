@@ -80,10 +80,13 @@ export default class ImageList extends React.Component {
   }
 
   resetPage() {
-    this.setState({ page: 0 });
+    return this.scroll;
   }
 
   scroll(event) {
+    if (event === undefined) {
+      return this.setState({ page: 0 });
+    }
     let { page, canScrollUp, canScrollDown } = this.state;
     const { maxPages } = this.props;
     const direction = event.target.value;
@@ -105,7 +108,7 @@ export default class ImageList extends React.Component {
         }
       }
     }
-    this.setState({ page, canScrollUp, canScrollDown });
+    return this.setState({ page, canScrollUp, canScrollDown });
   }
 
   render() {
