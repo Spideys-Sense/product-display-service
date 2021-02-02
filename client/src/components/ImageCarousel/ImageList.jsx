@@ -68,7 +68,7 @@ ${(props) => {
 export default class ImageList extends React.Component {
   constructor(props) {
     super(props);
-    const { maxPages } = props;
+    const { maxPages, updatePageReset } = props;
     this.state = {
       canScrollUp: false,
       canScrollDown: (maxPages > 0),
@@ -76,13 +76,11 @@ export default class ImageList extends React.Component {
     };
 
     this.scroll = this.scroll.bind(this);
+    updatePageReset(this.resetPage.bind(this));
   }
 
-  componentDidUpdate() {
-    const { page } = this.state;
-    if (page !== 0) {
-      this.setState({ page: 0 });
-    }
+  resetPage() {
+    this.setState({ page: 0 });
   }
 
   scroll(event) {

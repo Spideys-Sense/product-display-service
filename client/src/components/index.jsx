@@ -40,12 +40,14 @@ class App extends React.Component {
       },
       cartAmount: 0,
       maxPages: 0,
+      resetPage: null,
     };
     this.updateHoverData = this.updateHoverData.bind(this);
     this.updateCurrentItem = this.updateCurrentItem.bind(this);
     this.changeBigPicture = this.changeBigPicture.bind(this);
     this.updateModalDimensions = this.updateModalDimensions.bind(this);
     this.submitToCart = this.submitToCart.bind(this);
+    this.updatePageReset = this.updatePageReset.bind(this);
   }
 
   componentDidMount() {
@@ -77,6 +79,10 @@ class App extends React.Component {
     this.setState(state);
   }
 
+  updatePageReset(cb) {
+    this.setState({ resetPage: cb });
+  }
+
   updateModalDimensions(width, height) {
     this.setState({ modalDimensions: { width, height } });
   }
@@ -95,9 +101,11 @@ class App extends React.Component {
       })
       .then((response) => response.data.imageUrls)
       .then((servedImages) => {
+        const { resetPage } = this.state;
         newState.images = servedImages;
         newState.maxPages = (Math.ceil(servedImages.length / 5) - 1); // to zero-index
         newState.dataLoaded = true;
+        resetPage();
         this.setState(newState);
       });
   }
@@ -141,6 +149,7 @@ class App extends React.Component {
             updateModalDimensions={this.updateModalDimensions}
             changeBigPicture={this.changeBigPicture}
             maxPages={maxPages}
+            updatePageReset={this.updatePageReset}
           />
           <ProductDetails
             id={id}
