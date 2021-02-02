@@ -40,14 +40,16 @@ class App extends React.Component {
       },
       cartAmount: 0,
       maxPages: 0,
-      resetPage: (() => null),
+      canScrollUp: false,
+      canScrollDown: false,
+      page: 0,
     };
     this.updateHoverData = this.updateHoverData.bind(this);
     this.updateCurrentItem = this.updateCurrentItem.bind(this);
     this.changeBigPicture = this.changeBigPicture.bind(this);
     this.updateModalDimensions = this.updateModalDimensions.bind(this);
     this.submitToCart = this.submitToCart.bind(this);
-    this.updatePageReset = this.updatePageReset.bind(this);
+    this.scroll = this.scroll.bind(this);
   }
 
   componentDidMount() {
@@ -103,11 +105,39 @@ class App extends React.Component {
       .then((servedImages) => {
         const { resetPage } = this.state;
         newState.images = servedImages;
-        newState.maxPages = (Math.ceil(servedImages.length / 5) - 1); // to zero-index
+        newState.maxPages = Math.max((Math.ceil(servedImages.length / 5) - 1), 0);
+        newState.canScrollDown = (newState.maxPages > 0);
+        newState.canScrollUp = false;
+        newState.page = 0;
         newState.dataLoaded = true;
         resetPage();
         this.setState(newState);
       });
+  }
+
+  scroll(event) {
+    let { page, canScrollUp, canScrollDown } = this.state;
+    const { maxPages } = this.state;
+    const direction = event.target.value;
+    if (direction === 'up') {
+      if (page > 0) {
+        page -= 1;
+        canScrollDown = true;
+        if (page === 0) {
+          canScrollUp = false;
+        }
+      }
+      this.setState({ canScrollUp, page });
+    } else if (direction === 'down') {
+      if (page < maxPages) {
+        page += 1;
+        canScrollUp = true;
+        if (page === maxPages) {
+          canScrollDown = false;
+        }
+      }
+    }
+    this.setState({ page, canScrollUp, canScrollDown });
   }
 
   render() {
@@ -127,6 +157,9 @@ class App extends React.Component {
       modalDimensions,
       cartAmount,
       maxPages,
+      page,
+      canScrollUp,
+      canScrollDown
     } = this.state;
 
     const department = Department;
@@ -149,7 +182,10 @@ class App extends React.Component {
             updateModalDimensions={this.updateModalDimensions}
             changeBigPicture={this.changeBigPicture}
             maxPages={maxPages}
-            updatePageReset={this.updatePageReset}
+            page={page}
+            canScrollUp={canScrollUp}
+            canScrollDown={canScrollDown}
+            scroll={this.scroll}
           />
           <ProductDetails
             id={id}

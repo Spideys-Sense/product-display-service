@@ -22,7 +22,10 @@ export default function ImageCarousel(props) {
     changeBigPicture,
     activeImageIndex,
     maxPages,
-    updatePageReset,
+    page,
+    canScrollUp,
+    canScrollDown,
+    scroll
   } = props;
   const bigImage = images[activeImageIndex];
 
@@ -32,8 +35,11 @@ export default function ImageCarousel(props) {
         urls={images}
         changeBigPicture={changeBigPicture}
         maxPages={maxPages}
+        page={page}
+        canScrollUp={canScrollUp}
+        canScrollDown={canScrollDown}
         activeImageIndex={activeImageIndex}
-        updatePageReset={updatePageReset}
+        scroll={scroll}
       />
       <BigPicture
         url={bigImage}

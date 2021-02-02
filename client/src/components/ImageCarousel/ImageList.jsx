@@ -66,57 +66,13 @@ ${(props) => {
 `;
 
 export default class ImageList extends React.Component {
-  constructor(props) {
-    super(props);
-    const { maxPages, updatePageReset } = props;
-    this.state = {
-      canScrollUp: false,
-      canScrollDown: (maxPages > 0),
-      page: 0,
-    };
-
-    this.scroll = this.scroll.bind(this);
-    updatePageReset(this.resetPage.bind(this));
-  }
-
-  resetPage() {
-    return this.scroll;
-  }
-
-  scroll(event) {
-    if (event === undefined) {
-      return this.setState({ page: 0 });
-    }
-    let { page, canScrollUp, canScrollDown } = this.state;
-    const { maxPages } = this.props;
-    const direction = event.target.value;
-    if (direction === 'up') {
-      if (page > 0) {
-        page -= 1;
-        canScrollDown = true;
-        if (page === 0) {
-          canScrollUp = false;
-        }
-      }
-      this.setState({ canScrollUp, page });
-    } else if (direction === 'down') {
-      if (page < maxPages) {
-        page += 1;
-        canScrollUp = true;
-        if (page === maxPages) {
-          canScrollDown = false;
-        }
-      }
-    }
-    return this.setState({ page, canScrollUp, canScrollDown });
-  }
-
   render() {
-    const { urls, changeBigPicture, activeImageIndex } = this.props;
-    const { canScrollUp, canScrollDown, page } = this.state;
+    const {
+      urls, changeBigPicture, activeImageIndex, canScrollUp, canScrollDown, page, scroll,
+    } = this.props;
     return (
       <ListWrapper>
-        <UpButton enabled={canScrollUp} onClick={this.scroll} value="up">▲</UpButton>
+        <UpButton enabled={canScrollUp} onClick={scroll} value="up">▲</UpButton>
         <ImageSliderFrame>
           <ImageSlider page={page}>
             {urls.map((url, i) => (
@@ -130,7 +86,7 @@ export default class ImageList extends React.Component {
             ))}
           </ImageSlider>
         </ImageSliderFrame>
-        <DownButton enabled={canScrollDown} onClick={this.scroll} value="down">▼</DownButton>
+        <DownButton enabled={canScrollDown} onClick={scroll} value="down">▼</DownButton>
       </ListWrapper>
     );
   }
