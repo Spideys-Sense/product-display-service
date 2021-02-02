@@ -21,7 +21,7 @@ const seed = () => {
       price: 1699,
       discount: 100,
       stock: 10,
-      DepartmentId: models.Department.findAll({ where: { name: 'Cat > Food > Dry Food' } }).then((result)=>{ return result.id; }),
+      DepartmentId: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     }))
@@ -32,7 +32,7 @@ const seed = () => {
       price: 2499,
       discount: 100,
       stock: 10,
-      DepartmentId: models.Department.findAll({ where: { name: 'Cat > Food > Dry Food' } }).then((result)=>{ return result.id; }),
+      DepartmentId: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     }))
