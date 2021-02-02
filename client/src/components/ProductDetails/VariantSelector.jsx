@@ -7,6 +7,7 @@ import VariantSelectorOption from './VariantSelectorOption';
 const VariantSelectorBox = styled.div`
   grid-area: 4 / 1 / 4 / 1;
   display: flex;
+  flex-wrap: wrap;
   flex-flow: space-evenly;
 `;
 

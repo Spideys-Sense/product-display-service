@@ -9,7 +9,7 @@ const ImageBorderWrapper = styled.div`
   margin: 5px;
   bottom: 1px;
   border: ${(props) => ((props.activeImageIndex === props.i)
-    ? '1px #F0961B solid;'
+    ? '2px #F0961B solid;'
     : '1px #D5D5D5 solid;')}
   border-radius: 4px;
   display: flex;

@@ -9,7 +9,10 @@ const ListWrapper = styled.h5`
 `;
 
 const ListItem = styled.span`
+<<<<<<< Updated upstream
   font-weight: normal;
+=======
+>>>>>>> Stashed changes
   color: #666;
 `;
 
@@ -18,27 +21,27 @@ const WordListItem = styled(ListItem)`
 `;
 
 export default function DepartmentList(props) {
-	  const { department } = props;
-	  const splitWords = (department) => {
-		      let words = department.split(' ');
-		      words = words.map((word) => {
-			            if (word === '>') {
-					            return (
-							              <ListItem>{' > '}</ListItem>
-							            );
-					          }
-			            return (
-					            <WordListItem>{word}</WordListItem>
-					          );
-			          });
-		      return words;
-		    };
-	  const list = splitWords(department);
-	  return (
-		      <ListWrapper>
-		        {list}
-		      </ListWrapper>
-		    );
+  const { department } = props;
+  const splitWords = (department) => {
+    let words = department.split(' ');
+    words = words.map((word) => {
+      if (word === '>') {
+        return (
+          <ListItem>{' > '}</ListItem>
+        );
+      }
+      return (
+        <WordListItem>{word}</WordListItem>
+      );
+    });
+    return words;
+  };
+  const list = splitWords(department);
+  return (
+    <ListWrapper>
+      {list}
+    </ListWrapper>
+  );
 }
 
 DepartmentList.propTypes = {
