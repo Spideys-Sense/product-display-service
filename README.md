@@ -1,6 +1,6 @@
 # Bitey
 
-This is the service for the product display service at the top of the Bitey webpage (including header).
+This is the service for the product display components at the top of the Bitey webpage (including header).
 
 ## Related Projects
 
